@@ -1,0 +1,13 @@
+[Unit]
+Description=Post code manager
+
+[Service]
+Restart=always
+RestartSec=3
+ExecStart=/usr/bin/env post-code-manager
+SyslogIdentifier=post-code-manager
+Type=dbus
+BusName=xyz.openbmc_project.Boot.PostCode
+
+[Install]
+WantedBy=obmc-standby.target
