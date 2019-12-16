@@ -8,4 +8,4 @@ Type=dbus
 BusName=xyz.openbmc_project.State.Boot.PostCode
 
 [Install]
-WantedBy=obmc-standby.target
+WantedBy=multi-user.target
