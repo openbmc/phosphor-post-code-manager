@@ -20,11 +20,14 @@
 #include <cereal/access.hpp>
 #include <cereal/archives/json.hpp>
 #include <cereal/cereal.hpp>
+#include <cereal/types/map.hpp>
 #include <cereal/types/vector.hpp>
+#include <chrono>
 #include <experimental/filesystem>
 #include <fstream>
 #include <iostream>
 #include <phosphor-logging/elog-errors.hpp>
+#include <xyz/openbmc_project/Collection/DeleteAll/server.hpp>
 #include <xyz/openbmc_project/Common/error.hpp>
 #include <xyz/openbmc_project/State/Boot/PostCode/server.hpp>
 #include <xyz/openbmc_project/State/Host/server.hpp>
@@ -36,6 +39,8 @@ const static constexpr char *PostCodePath =
 const static constexpr char *PropertiesIntf = "org.freedesktop.DBus.Properties";
 const static constexpr char *PostCodeListPath =
     "/var/lib/phosphor-post-code-manager/";
+const static constexpr char *CurrentBootCycleCountName =
+    "CurrentBootCycleCount";
 const static constexpr char *CurrentBootCycleIndexName =
     "CurrentBootCycleIndex";
 const static constexpr char *HostStatePath = "/xyz/openbmc_project/state/host0";
@@ -53,11 +58,13 @@ namespace StateServer = sdbusplus::xyz::openbmc_project::State::server;
 
 using post_code =
     sdbusplus::xyz::openbmc_project::State::Boot::server::PostCode;
+using delete_all =
+    sdbusplus::xyz::openbmc_project::Collection::server::DeleteAll;
 
-struct PostCode : sdbusplus::server::object_t<post_code>
+struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
 {
     PostCode(sdbusplus::bus::bus &bus, const char *path, EventPtr &event) :
-        sdbusplus::server::object_t<post_code>(bus, path), bus(bus),
+        sdbusplus::server::object_t<post_code, delete_all>(bus, path), bus(bus),
         propertiesChangedSignalRaw(
             bus,
             sdbusplus::bus::match::rules::type::signal() +
@@ -103,17 +110,17 @@ struct PostCode : sdbusplus::server::object_t<post_code>
                         if (currentHostState ==
                             StateServer::Host::HostState::Off)
                         {
-                            if (this->currentBootCycleIndex() >=
-                                this->maxBootCycleNum())
+                            if (this->postCodes.empty())
                             {
-                                this->currentBootCycleIndex(1);
+                                std::cerr << "HostState changed to OFF. Empty "
+                                             "postcode log, keep boot cycle at "
+                                          << this->currentBootCycleIndex
+                                          << std::endl;
                             }
                             else
                             {
-                                this->currentBootCycleIndex(
-                                    this->currentBootCycleIndex() + 1);
+                                this->postCodes.clear();
                             }
-                            this->postCodes.clear();
                         }
                     }
                 }
@@ -129,33 +136,41 @@ struct PostCode : sdbusplus::server::object_t<post_code>
         deserialize(
             fs::path(strPostCodeListPath + strCurrentBootCycleIndexName),
             index);
-        currentBootCycleIndex(index);
+        currentBootCycleIndex = index;
+        strCurrentBootCycleCountName = CurrentBootCycleCountName;
+        uint16_t count = 0;
+        deserialize(
+            fs::path(strPostCodeListPath + strCurrentBootCycleCountName),
+            count);
+        currentBootCycleCount(count);
         maxBootCycleNum(MaxPostCodeCycles);
-        if (currentBootCycleIndex() >= maxBootCycleNum())
-        {
-            currentBootCycleIndex(1);
-        }
-        else
-        {
-            currentBootCycleIndex(currentBootCycleIndex() + 1);
-        }
     }
     ~PostCode()
     {
     }
 
     std::vector<uint64_t> getPostCodes(uint16_t index) override;
+    std::map<uint64_t, uint64_t>
+        getPostCodesWithTimeStamp(uint16_t index) override;
+    void deleteAll() override;
 
   private:
+    void incrBootCycle();
+    uint16_t getBootNum(const uint16_t index) const;
+
     sdbusplus::bus::bus &bus;
-    std::vector<uint64_t> postCodes;
+    std::chrono::time_point<std::chrono::steady_clock> firstPostCodeTimeSteady;
+    uint64_t firstPostCodeUsSinceEpoch;
+    std::map<uint64_t, uint64_t> postCodes;
     std::string strPostCodeListPath;
     std::string strCurrentBootCycleIndexName;
+    uint16_t currentBootCycleIndex;
+    std::string strCurrentBootCycleCountName;
     void savePostCodes(uint64_t code);
     sdbusplus::bus::match_t propertiesChangedSignalRaw;
     sdbusplus::bus::match_t propertiesChangedSignalCurrentHostState;
     fs::path serialize(const std::string &path);
     bool deserialize(const fs::path &path, uint16_t &index);
     bool deserializePostCodes(const fs::path &path,
-                              std::vector<uint64_t> &codes);
+                              std::map<uint64_t, uint64_t> &codes);
 };
