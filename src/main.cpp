@@ -15,6 +15,9 @@
 */
 #include "post_code.hpp"
 
+#include <sdbusplus/asio/connection.hpp>
+#include <sdbusplus/asio/object_server.hpp>
+
 int main(int argc, char* argv[])
 {
     int ret = 0;
@@ -33,16 +36,31 @@ int main(int argc, char* argv[])
     EventPtr eventP{event};
     event = nullptr;
 
-    sdbusplus::bus::bus bus = sdbusplus::bus::new_default();
-    sdbusplus::server::manager_t m{bus, DBUS_OBJECT_NAME};
+    boost::asio::io_service io;
+    std::shared_ptr<sdbusplus::asio::connection> system_bus =
+        std::make_shared<sdbusplus::asio::connection>(io);
+    system_bus->request_name(DBUS_INTF_NAME);
 
-    bus.request_name(DBUS_INTF_NAME);
+    sdbusplus::server::manager_t m{
+        static_cast<sdbusplus::bus::bus&>(*system_bus), DBUS_OBJECT_NAME};
+    PostCode postCode{static_cast<sdbusplus::bus::bus&>(*system_bus),
+                      DBUS_OBJECT_NAME, eventP};
 
-    PostCode postCode{bus, DBUS_OBJECT_NAME, eventP};
+    constexpr char const* deleteAllInterface =
+        "xyz.openbmc_project.Collection.DeleteAll";
+    sdbusplus::asio::object_server server(system_bus);
+    std::shared_ptr<sdbusplus::asio::dbus_interface> ifaceDeleteAll =
+        server.add_interface(DBUS_OBJECT_NAME, deleteAllInterface);
+    ifaceDeleteAll->register_method("DeleteAll", [&postCode]() {
+        postCode.deleteAll();
+        return std::string("PostCode Cleared");
+    });
+    ifaceDeleteAll->initialize();
 
     try
     {
-        bus.attach_event(eventP.get(), SD_EVENT_PRIORITY_NORMAL);
+        static_cast<sdbusplus::bus::bus&>(*system_bus)
+            .attach_event(eventP.get(), SD_EVENT_PRIORITY_NORMAL);
         ret = sd_event_loop(eventP.get());
         if (ret < 0)
         {

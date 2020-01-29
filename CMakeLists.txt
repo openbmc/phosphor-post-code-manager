@@ -37,9 +37,19 @@ pkg_check_modules(DBUSINTERFACE phosphor-dbus-interfaces REQUIRED)
 include_directories(${DBUSINTERFACE_INCLUDE_DIRS})
 link_directories(${DBUSINTERFACE_LIBRARY_DIRS})
 
+#boost is required by sdbusplus asio
+find_package (Boost 1.66 REQUIRED)
+include_directories (${BOOST_SRC_DIR})
+
+add_definitions (-DBOOST_ERROR_CODE_HEADER_ONLY)
+add_definitions (-DBOOST_SYSTEM_NO_DEPRECATED)
+add_definitions (-DBOOST_ALL_NO_LIB)
+add_definitions (-DBOOST_NO_RTTI)
+add_definitions (-DBOOST_NO_TYPEID)
+
 add_executable(${PROJECT_NAME} ${SRC_FILES})
 target_link_libraries(${PROJECT_NAME} ${DBUSINTERFACE_LIBRARIES} )
-target_link_libraries(${PROJECT_NAME} "${SDBUSPLUSPLUS_LIBRARIES} -lstdc++fs -lphosphor_dbus")
+target_link_libraries(${PROJECT_NAME} "${SDBUSPLUSPLUS_LIBRARIES} -lpthread -lstdc++fs -lphosphor_dbus")
 
 install (TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
 install (FILES ${SERVICE_FILES} DESTINATION /lib/systemd/system/)
