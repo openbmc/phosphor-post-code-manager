@@ -14,9 +14,45 @@
 // limitations under the License.
 */
 #include "post_code.hpp"
+
+#include "iomanip"
+
+void PostCode::deleteAll()
+{
+    auto dir = fs::path(PostCodeListPath);
+    std::uintmax_t n = fs::remove_all(dir);
+    std::cerr << "clearPostCodes deleted " << n << " files in "
+              << PostCodeListPath << std::endl;
+    fs::create_directories(dir);
+    postCodes.clear();
+    currentBootCycleIndex(1);
+}
+
 std::vector<uint64_t> PostCode::getPostCodes(uint16_t index)
 {
-    std::vector<uint64_t> codes;
+    std::vector<uint64_t> codesVec;
+
+    if (currentBootCycleIndex() == index)
+    {
+        for (auto& code : postCodes)
+            codesVec.push_back(code.second);
+    }
+    else
+    {
+        // std::map<uint64_t, uint64_t> codes;
+        decltype(postCodes) codes;
+        deserializePostCodes(
+            fs::path(strPostCodeListPath + std::to_string(index)), codes);
+        for (std::pair<uint64_t, uint64_t> code : codes)
+            codesVec.push_back(code.second);
+    }
+    return codesVec;
+}
+
+std::map<uint64_t, uint64_t> PostCode::getPostCodesWithTimeStamp(uint16_t index)
+{
+    // std::map<uint64_t, uint64_t> codes;
+    decltype(postCodes) codes;
 
     if (currentBootCycleIndex() == index)
         return postCodes;
@@ -24,10 +60,32 @@ std::vector<uint64_t> PostCode::getPostCodes(uint16_t index)
                          codes);
     return codes;
 }
+
 void PostCode::savePostCodes(uint64_t code)
 {
-    postCodes.push_back(code);
+    // steady_clock is a monotonic clock that is guaranteed to never be adjusted
+    auto postCodeTimeSteady = std::chrono::steady_clock::now();
+    uint64_t tsUS = std::chrono::duration_cast<std::chrono::microseconds>(
+                        std::chrono::system_clock::now().time_since_epoch())
+                        .count();
+
+    if (postCodes.empty())
+    {
+        firstPostCodeTimeSteady = postCodeTimeSteady;
+        firstPostCodeUsSinceEpoch = tsUS; // uS since epoch for 1st post code
+    }
+    else
+    {
+        // calculating tsUS so it is monotonic within the same boot
+        tsUS = firstPostCodeUsSinceEpoch +
+               std::chrono::duration_cast<std::chrono::microseconds>(
+                   postCodeTimeSteady - firstPostCodeTimeSteady)
+                   .count();
+    }
+
+    postCodes.insert(std::make_pair(tsUS, code));
     serialize(fs::path(PostCodeListPath));
+
     return;
 }
 
@@ -87,7 +145,7 @@ bool PostCode::deserialize(const fs::path& path, uint16_t& index)
 }
 
 bool PostCode::deserializePostCodes(const fs::path& path,
-                                    std::vector<uint64_t>& codes)
+                                    std::map<uint64_t, uint64_t>& codes)
 {
     try
     {
@@ -109,6 +167,5 @@ bool PostCode::deserializePostCodes(const fs::path& path,
     {
         return false;
     }
-
     return false;
 }
