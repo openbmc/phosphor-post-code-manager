@@ -14,9 +14,43 @@
 // limitations under the License.
 */
 #include "post_code.hpp"
+
+#include "iomanip"
+
+void PostCode::deleteAll()
+{
+    auto dir = fs::path(PostCodeListPath);
+    std::uintmax_t n = fs::remove_all(dir);
+    std::cerr << "clearPostCodes deleted " << n << " files in "
+              << PostCodeListPath << std::endl;
+    fs::create_directories(dir);
+    postCodes.clear();
+    currentBootCycleIndex(1);
+}
+
 std::vector<uint64_t> PostCode::getPostCodes(uint16_t index)
 {
-    std::vector<uint64_t> codes;
+    std::map<uint64_t, uint64_t> codes;
+    std::vector<uint64_t> codesVec;
+
+    if (currentBootCycleIndex() == index)
+    {
+        for (auto code : postCodes)
+            codesVec.push_back(code.second);
+    }
+    else
+    {
+        deserializePostCodes(
+            fs::path(strPostCodeListPath + std::to_string(index)), codes);
+        for (auto code : codes)
+            codesVec.push_back(code.second);
+    }
+    return codesVec;
+}
+
+std::map<uint64_t, uint64_t> PostCode::getPostCodesTS(uint16_t index)
+{
+    std::map<uint64_t, uint64_t> codes;
 
     if (currentBootCycleIndex() == index)
         return postCodes;
@@ -24,10 +58,42 @@ std::vector<uint64_t> PostCode::getPostCodes(uint16_t index)
                          codes);
     return codes;
 }
+
 void PostCode::savePostCodes(uint64_t code)
 {
-    postCodes.push_back(code);
+    // for calculating monotonic time offset is microsecond
+    auto postCodeTimeSteady = std::chrono::steady_clock::now();
+    // for display human readable realtime/wall time
+    std::chrono::time_point<std::chrono::system_clock,
+                            std::chrono::microseconds>
+        now = std::chrono::time_point_cast<std::chrono::microseconds>(
+            std::chrono::system_clock::now());
+
+    uint64_t tsUS = // US since epoch for 1st post code
+        std::chrono::duration_cast<std::chrono::microseconds>(
+            std::chrono::system_clock::now().time_since_epoch())
+            .count();
+
+    if (postCodes.empty())
+    {
+        firstPostCodeTimeSteady = postCodeTimeSteady;
+        firstPostCodeUsSinceEpoch = tsUS;
+    }
+    else
+    {
+        // uint64_t timeOffsetUS =
+        //    std::chrono::duration_cast<std::chrono::microseconds>(
+        //        postCodeTimeSteady - firstPostCodeTimeSteady)
+        //        .count();
+        tsUS = firstPostCodeUsSinceEpoch + // US offset since first POSt CODE
+               std::chrono::duration_cast<std::chrono::microseconds>(
+                   postCodeTimeSteady - firstPostCodeTimeSteady)
+                   .count();
+    }
+
+    postCodes.insert(std::make_pair(tsUS, code));
     serialize(fs::path(PostCodeListPath));
+
     return;
 }
 
@@ -87,7 +153,7 @@ bool PostCode::deserialize(const fs::path& path, uint16_t& index)
 }
 
 bool PostCode::deserializePostCodes(const fs::path& path,
-                                    std::vector<uint64_t>& codes)
+                                    std::map<uint64_t, uint64_t>& codes)
 {
     try
     {
@@ -109,6 +175,5 @@ bool PostCode::deserializePostCodes(const fs::path& path,
     {
         return false;
     }
-
     return false;
 }
