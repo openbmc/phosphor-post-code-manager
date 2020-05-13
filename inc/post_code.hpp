@@ -73,8 +73,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
                 sdbusplus::bus::match::rules::interface(PropertiesIntf),
             [this](sdbusplus::message::message &msg) {
                 std::string objectName;
-                std::map<std::string, sdbusplus::message::variant<uint64_t>>
-                    msgData;
+                std::map<std::string, std::variant<uint64_t>> msgData;
                 msg.read(objectName, msgData);
                 // Check if it was the Value property that changed.
                 auto valPropMap = msgData.find("Value");
@@ -94,8 +93,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
                 sdbusplus::bus::match::rules::interface(PropertiesIntf),
             [this](sdbusplus::message::message &msg) {
                 std::string objectName;
-                std::map<std::string, sdbusplus::message::variant<std::string>>
-                    msgData;
+                std::map<std::string, std::variant<std::string>> msgData;
                 msg.read(objectName, msgData);
                 // Check if it was the Value property that changed.
                 auto valPropMap = msgData.find("CurrentHostState");
