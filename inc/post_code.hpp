@@ -82,8 +82,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
                     if (valPropMap != msgData.end())
                     {
                         this->savePostCodes(
-                            sdbusplus::message::variant_ns::get<uint64_t>(
-                                valPropMap->second));
+                            std::get<uint64_t>(valPropMap->second));
                     }
                 }
             }),
@@ -105,8 +104,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
                     {
                         StateServer::Host::HostState currentHostState =
                             StateServer::Host::convertHostStateFromString(
-                                sdbusplus::message::variant_ns::get<
-                                    std::string>(valPropMap->second));
+                                std::get<std::string>(valPropMap->second));
                         if (currentHostState ==
                             StateServer::Host::HostState::Off)
                         {
