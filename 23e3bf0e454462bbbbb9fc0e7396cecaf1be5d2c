@@ -1,0 +1,9 @@
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Code-Review+1: Vernon Mauery <vernon.mauery@linux.intel.com>
+Code-Review+2: Kuiying Wang <kuiying.wang@intel.com>
+Submitted-by: Kuiying Wang <kuiying.wang@intel.com>
+Submitted-at: Sun, 31 May 2020 13:27:28 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-post-code-manager/+/32256
+Project: openbmc/phosphor-post-code-manager
+Branch: refs/heads/master
