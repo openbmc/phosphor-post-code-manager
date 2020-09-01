@@ -17,12 +17,14 @@
 
 #include "iomanip"
 
+std::string node = "0";
+
 void PostCode::deleteAll()
 {
-    auto dir = fs::path(PostCodeListPath);
+    auto dir = fs::path(PostCodeListPath + node);
     std::uintmax_t n = fs::remove_all(dir);
     std::cerr << "clearPostCodes deleted " << n << " files in "
-              << PostCodeListPath << std::endl;
+              << PostCodeListPath + node << std::endl;
     fs::create_directories(dir);
     postCodes.clear();
     currentBootCycleIndex = 1;
@@ -88,7 +90,7 @@ void PostCode::savePostCodes(uint64_t code)
     }
 
     postCodes.insert(std::make_pair(tsUS, code));
-    serialize(fs::path(PostCodeListPath));
+    serialize(fs::path(strPostCodeListPath));
 
     return;
 }

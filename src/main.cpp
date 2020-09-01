@@ -17,6 +17,11 @@
 
 int main(int argc, char* argv[])
 {
+    if (argc > 1)
+    {
+        node = argv[1];
+    }
+
     int ret = 0;
 
     phosphor::logging::log<phosphor::logging::level::INFO>(
@@ -36,7 +41,8 @@ int main(int argc, char* argv[])
     sdbusplus::bus::bus bus = sdbusplus::bus::new_default();
     sdbusplus::server::manager_t m{bus, DBUS_OBJECT_NAME};
 
-    bus.request_name(DBUS_INTF_NAME);
+    std::string intfName = DBUS_INTF_NAME + node;
+    bus.request_name(intfName.c_str());
 
     PostCode postCode{bus, DBUS_OBJECT_NAME, eventP};
 

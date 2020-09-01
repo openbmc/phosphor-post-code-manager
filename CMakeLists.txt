@@ -16,7 +16,8 @@ add_definitions(-DDBUS_INTF_NAME="${DBUS_INTF_NAME}")
 set(SRC_FILES src/post_code.cpp
     src/main.cpp )
 set ( SERVICE_FILES
-    service_files/xyz.openbmc_project.State.Boot.PostCode.service )
+    service_files/xyz.openbmc_project.State.Boot.PostCode.service
+    service_files/xyz.openbmc_project.State.Boot.PostCode@.service )
 
 # import sdbusplus
 find_package(PkgConfig REQUIRED)

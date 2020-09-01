@@ -34,16 +34,18 @@
 
 #define MaxPostCodeCycles 100
 
+extern std::string node;
+
 const static constexpr char *PostCodePath =
     "/xyz/openbmc_project/state/boot/raw";
 const static constexpr char *PropertiesIntf = "org.freedesktop.DBus.Properties";
 const static constexpr char *PostCodeListPath =
-    "/var/lib/phosphor-post-code-manager/";
+    "/var/lib/phosphor-post-code-manager/host";
 const static constexpr char *CurrentBootCycleCountName =
     "CurrentBootCycleCount";
 const static constexpr char *CurrentBootCycleIndexName =
     "CurrentBootCycleIndex";
-const static constexpr char *HostStatePath = "/xyz/openbmc_project/state/host0";
+const static constexpr char *HostStatePath = "/xyz/openbmc_project/state/host";
 
 struct EventDeleter
 {
@@ -69,7 +71,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
             bus,
             sdbusplus::bus::match::rules::type::signal() +
                 sdbusplus::bus::match::rules::member("PropertiesChanged") +
-                sdbusplus::bus::match::rules::path(PostCodePath) +
+                sdbusplus::bus::match::rules::path(PostCodePath + node) +
                 sdbusplus::bus::match::rules::interface(PropertiesIntf),
             [this](sdbusplus::message::message &msg) {
                 std::string objectName;
@@ -89,7 +91,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
             bus,
             sdbusplus::bus::match::rules::type::signal() +
                 sdbusplus::bus::match::rules::member("PropertiesChanged") +
-                sdbusplus::bus::match::rules::path(HostStatePath) +
+                sdbusplus::bus::match::rules::path(HostStatePath + node) +
                 sdbusplus::bus::match::rules::interface(PropertiesIntf),
             [this](sdbusplus::message::message &msg) {
                 std::string objectName;
@@ -124,9 +126,9 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
     {
         phosphor::logging::log<phosphor::logging::level::INFO>(
             "PostCode is created");
-        auto dir = fs::path(PostCodeListPath);
+        auto dir = fs::path(PostCodeListPath + node);
         fs::create_directories(dir);
-        strPostCodeListPath = PostCodeListPath;
+        strPostCodeListPath = PostCodeListPath + node + "/";
         strCurrentBootCycleIndexName = CurrentBootCycleIndexName;
         uint16_t index = 0;
         deserialize(
