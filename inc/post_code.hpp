@@ -57,6 +57,7 @@ class PostCodeDataHolder
     }
 
     int node;
+    std::string strNodeId = "";
 
     const static constexpr char *PostCodePath =
         "/xyz/openbmc_project/state/boot/raw";
@@ -97,7 +98,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
                 sdbusplus::bus::match::rules::member("PropertiesChanged") +
                 sdbusplus::bus::match::rules::path(
                     postcodeDataHolderObj->PostCodePath +
-                    std::to_string(postcodeDataHolderObj->node)) +
+                    postcodeDataHolderObj->strNodeId) +
                 sdbusplus::bus::match::rules::interface(
                     postcodeDataHolderObj->PropertiesIntf),
             [this](sdbusplus::message::message &msg) {
@@ -120,7 +121,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
                 sdbusplus::bus::match::rules::member("PropertiesChanged") +
                 sdbusplus::bus::match::rules::path(
                     postcodeDataHolderObj->HostStatePathPrefix +
-                    std::to_string(postcodeDataHolderObj->node)) +
+                    postcodeDataHolderObj->strNodeId) +
                 sdbusplus::bus::match::rules::interface(
                     postcodeDataHolderObj->PropertiesIntf),
             [this](sdbusplus::message::message &msg) {
@@ -157,10 +158,10 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
         phosphor::logging::log<phosphor::logging::level::INFO>(
             "PostCode is created");
         auto dir = fs::path(postcodeDataHolderObj->PostCodeListPathPrefix +
-                            std::to_string(postcodeDataHolderObj->node));
+                            postcodeDataHolderObj->strNodeId);
         fs::create_directories(dir);
         strPostCodeListPath = postcodeDataHolderObj->PostCodeListPathPrefix +
-                              std::to_string(postcodeDataHolderObj->node) + "/";
+                              postcodeDataHolderObj->strNodeId + "/";
         strCurrentBootCycleIndexName = CurrentBootCycleIndexName;
         uint16_t index = 0;
         deserialize(
