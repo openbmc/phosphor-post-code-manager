@@ -22,11 +22,11 @@ PostCodeDataHolder* PostCodeDataHolder::instance = 0;
 void PostCode::deleteAll()
 {
     auto dir = fs::path(postcodeDataHolderObj->PostCodeListPathPrefix +
-                        std::to_string(postcodeDataHolderObj->node));
+                        postcodeDataHolderObj->strNodeId);
     std::uintmax_t n = fs::remove_all(dir);
     std::cerr << "clearPostCodes deleted " << n << " files in "
               << postcodeDataHolderObj->PostCodeListPathPrefix +
-                     std::to_string(postcodeDataHolderObj->node)
+                     postcodeDataHolderObj->strNodeId
               << std::endl;
     fs::create_directories(dir);
     postCodes.clear();
