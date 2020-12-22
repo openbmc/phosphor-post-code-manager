@@ -95,9 +95,17 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
             bus,
             sdbusplus::bus::match::rules::type::signal() +
                 sdbusplus::bus::match::rules::member("PropertiesChanged") +
-                sdbusplus::bus::match::rules::path(
-                    postcodeDataHolderObj->PostCodePath +
-                    std::to_string(postcodeDataHolderObj->node)) +
+                sdbusplus::bus::match::rules::path([]() {
+                    if (postcodeDataHolderObj->node == -1)
+                    {
+                        return postcodeDataHolderObj->PostCodePath;
+                    }
+                    else
+                    {
+                        return postcodeDataHolderObj->PostCodePath +
+                               std::to_string(postcodeDataHolderObj->node)
+                    }
+                }) +
                 sdbusplus::bus::match::rules::interface(
                     postcodeDataHolderObj->PropertiesIntf),
             [this](sdbusplus::message::message &msg) {
