@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "f26dd2fa_e6f19dc5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-01-05T01:10:48Z",
+      "side": 1,
+      "message": "If we want to go with this change, can you add more description and testing steps?",
+      "revId": "f05f6877866506f4d22611a2fc04aa69e7886c18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b1adf17_6b6a3b57",
+        "filename": "inc/post_code.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-01-05T01:10:48Z",
+      "side": 1,
+      "message": "The PostCodeDataHolder class seems quite weird and should probably try to get rid of it instead of adding to it. Can we just pass the node id to PostCode constructor, and then calculate the string inside there?",
+      "revId": "f05f6877866506f4d22611a2fc04aa69e7886c18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bd750c8d_4de9508a",
         "filename": "service_files/xyz.openbmc_project.State.Boot.PostCode.service",
         "patchSetId": 3
@@ -41,6 +75,29 @@
         "startChar": 0,
         "endLine": 48,
         "endChar": 17
+      },
+      "revId": "f05f6877866506f4d22611a2fc04aa69e7886c18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9143c04_8a31bea3",
+        "filename": "src/main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-01-05T01:10:48Z",
+      "side": 1,
+      "message": "if you\u0027re touching this code, can you rename intfName -\u003e serviceName for clarity?",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 12
       },
       "revId": "f05f6877866506f4d22611a2fc04aa69e7886c18",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",

@@ -22,6 +22,30 @@
       "revId": "fd45f78858304f67a0e80224a99cbe76eed82af0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed0c0a0e_031f6a8e",
+        "filename": "src/main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-01-05T01:10:48Z",
+      "side": 0,
+      "message": "The bug is in the D-Bus object name, not in this logic to set the well-known bus name.",
+      "parentUuid": "895ad8bc_1682c925",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 5
+      },
+      "revId": "fd45f78858304f67a0e80224a99cbe76eed82af0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
