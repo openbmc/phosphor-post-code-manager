@@ -2,10 +2,10 @@
 Description=Post code manager
 
 [Service]
-ExecStart=/usr/bin/env post-code-manager
+ExecStart=/usr/bin/post-code-manager --host 0
 SyslogIdentifier=post-code-manager
 Type=dbus
-BusName=xyz.openbmc_project.State.Boot.PostCode
+BusName=xyz.openbmc_project.State.Boot.PostCode0
 
 [Install]
 WantedBy=multi-user.target

@@ -8,7 +8,7 @@ include(GNUInstallDirs)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/inc)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-set(DBUS_OBJECT_NAME "xyz/openbmc_project/State/Boot/PostCode")
+set(DBUS_OBJECT_NAME "xyz/openbmc_project/State/Boot/PostCode0")
 set(DBUS_INTF_NAME "xyz.openbmc_project.State.Boot.PostCode")
 
 add_definitions(-DDBUS_OBJECT_NAME="/${DBUS_OBJECT_NAME}")
