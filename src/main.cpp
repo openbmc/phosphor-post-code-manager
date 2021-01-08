@@ -60,14 +60,7 @@ int main(int argc, char* argv[])
     sdbusplus::bus::bus bus = sdbusplus::bus::new_default();
     sdbusplus::server::manager_t m{bus, DBUS_OBJECT_NAME};
 
-    if (postcodeDataHolderObj->node == 0)
-    {
-        intfName = DBUS_INTF_NAME;
-    }
-    else
-    {
-        intfName = DBUS_INTF_NAME + std::to_string(postcodeDataHolderObj->node);
-    }
+    intfName = DBUS_INTF_NAME + std::to_string(postcodeDataHolderObj->node);
 
     bus.request_name(intfName.c_str());
 
