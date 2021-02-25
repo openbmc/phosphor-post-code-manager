@@ -21,6 +21,7 @@
 #include <cereal/archives/json.hpp>
 #include <cereal/cereal.hpp>
 #include <cereal/types/map.hpp>
+#include <cereal/types/tuple.hpp>
 #include <cereal/types/vector.hpp>
 #include <chrono>
 #include <experimental/filesystem>
@@ -102,7 +103,10 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
                     postcodeDataHolderObj->PropertiesIntf),
             [this](sdbusplus::message::message &msg) {
                 std::string objectName;
-                std::map<std::string, std::variant<uint64_t>> msgData;
+                std::map<
+                    std::string,
+                    std::variant<std::tuple<uint64_t, std::vector<uint8_t>>>>
+                    msgData;
                 msg.read(objectName, msgData);
                 // Check if it was the Value property that changed.
                 auto valPropMap = msgData.find("Value");
@@ -110,7 +114,9 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
                     if (valPropMap != msgData.end())
                     {
                         this->savePostCodes(
-                            std::get<uint64_t>(valPropMap->second));
+                            std::get<
+                                std::tuple<uint64_t, std::vector<uint8_t>>>(
+                                valPropMap->second));
                     }
                 }
             }),
@@ -179,8 +185,9 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
     {
     }
 
-    std::vector<uint64_t> getPostCodes(uint16_t index) override;
-    std::map<uint64_t, uint64_t>
+    std::vector<std::tuple<uint64_t, std::vector<uint8_t>>>
+        getPostCodes(uint16_t index) override;
+    std::map<uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>
         getPostCodesWithTimeStamp(uint16_t index) override;
     void deleteAll() override;
 
@@ -191,16 +198,17 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
     sdbusplus::bus::bus &bus;
     std::chrono::time_point<std::chrono::steady_clock> firstPostCodeTimeSteady;
     uint64_t firstPostCodeUsSinceEpoch;
-    std::map<uint64_t, uint64_t> postCodes;
+    std::map<uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>> postCodes;
     std::string strPostCodeListPath;
     std::string strCurrentBootCycleIndexName;
     uint16_t currentBootCycleIndex;
     std::string strCurrentBootCycleCountName;
-    void savePostCodes(uint64_t code);
+    void savePostCodes(std::tuple<uint64_t, std::vector<uint8_t>> code);
     sdbusplus::bus::match_t propertiesChangedSignalRaw;
     sdbusplus::bus::match_t propertiesChangedSignalCurrentHostState;
     fs::path serialize(const std::string &path);
     bool deserialize(const fs::path &path, uint16_t &index);
-    bool deserializePostCodes(const fs::path &path,
-                              std::map<uint64_t, uint64_t> &codes);
+    bool deserializePostCodes(
+        const fs::path &path,
+        std::map<uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>> &codes);
 };
