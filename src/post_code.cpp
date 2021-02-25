@@ -34,9 +34,9 @@ void PostCode::deleteAll()
     currentBootCycleCount(1);
 }
 
-std::vector<uint64_t> PostCode::getPostCodes(uint16_t index)
+std::vector<postcode_t> PostCode::getPostCodes(uint16_t index)
 {
-    std::vector<uint64_t> codesVec;
+    std::vector<postcode_t> codesVec;
     if (1 == index && !postCodes.empty())
     {
         for (auto& code : postCodes)
@@ -49,13 +49,14 @@ std::vector<uint64_t> PostCode::getPostCodes(uint16_t index)
         decltype(postCodes) codes;
         deserializePostCodes(
             fs::path(strPostCodeListPath + std::to_string(bootNum)), codes);
-        for (std::pair<uint64_t, uint64_t> code : codes)
+        for (std::pair<uint64_t, postcode_t> code : codes)
             codesVec.push_back(code.second);
     }
     return codesVec;
 }
 
-std::map<uint64_t, uint64_t> PostCode::getPostCodesWithTimeStamp(uint16_t index)
+std::map<uint64_t, postcode_t>
+    PostCode::getPostCodesWithTimeStamp(uint16_t index)
 {
     if (1 == index && !postCodes.empty())
     {
@@ -69,7 +70,7 @@ std::map<uint64_t, uint64_t> PostCode::getPostCodesWithTimeStamp(uint16_t index)
     return codes;
 }
 
-void PostCode::savePostCodes(uint64_t code)
+void PostCode::savePostCodes(postcode_t code)
 {
     // steady_clock is a monotonic clock that is guaranteed to never be adjusted
     auto postCodeTimeSteady = std::chrono::steady_clock::now();
@@ -158,7 +159,7 @@ bool PostCode::deserialize(const fs::path& path, uint16_t& index)
 }
 
 bool PostCode::deserializePostCodes(const fs::path& path,
-                                    std::map<uint64_t, uint64_t>& codes)
+                                    std::map<uint64_t, postcode_t>& codes)
 {
     try
     {
