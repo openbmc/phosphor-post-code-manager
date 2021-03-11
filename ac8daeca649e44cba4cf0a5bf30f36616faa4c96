@@ -46,6 +46,30 @@
       "revId": "ac8daeca649e44cba4cf0a5bf30f36616faa4c96",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f269b661_4b6bbbb9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-11T02:27:24Z",
+      "side": 1,
+      "message": "Yes,i have fixed the phosphor-host-postd repo which generates the post codes to send an empty array in place of the secondary code.and this commit would still work.",
+      "parentUuid": "5adddd0f_86c5426e",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 60
+      },
+      "revId": "ac8daeca649e44cba4cf0a5bf30f36616faa4c96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
