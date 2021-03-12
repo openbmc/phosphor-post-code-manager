@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3246c8ee_43688d7d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000207
+      },
+      "writtenOn": "2021-03-12T02:56:31Z",
+      "side": 1,
+      "message": "Please change \"support\" to logic or something similar to avoid redundant \"support\" word ?",
+      "revId": "2ddff822a16b2c5bb1f115f0331ee4b762b375f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c8fb8da_0ba17431",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000207
+      },
+      "writtenOn": "2021-03-12T02:56:31Z",
+      "side": 1,
+      "message": "Remove \"so\"",
+      "revId": "2ddff822a16b2c5bb1f115f0331ee4b762b375f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeeeacf1_d33702c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000207
+      },
+      "writtenOn": "2021-03-12T02:56:31Z",
+      "side": 1,
+      "message": "typo",
+      "revId": "2ddff822a16b2c5bb1f115f0331ee4b762b375f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
