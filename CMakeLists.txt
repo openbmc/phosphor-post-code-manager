@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 2.8.10 FATAL_ERROR)
 project(post-code-manager CXX)
+option (
+    ENABLE_BIOS_POST_CODE_LOG
+    "Enable Bios Post Code Logging"
+    OFF
+)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -43,4 +48,7 @@ target_link_libraries(${PROJECT_NAME} ${DBUSINTERFACE_LIBRARIES} )
 target_link_libraries(${PROJECT_NAME} "${SDBUSPLUSPLUS_LIBRARIES} -lstdc++fs -lphosphor_dbus")
 
 install (TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
+target_compile_definitions (
+    ${PROJECT_NAME} PRIVATE $<$<BOOL:${ENABLE_BIOS_POST_CODE_LOG}>: -DENABLE_BIOS_POST_CODE_LOG>
+)
 install (FILES ${SERVICE_FILES} DESTINATION /lib/systemd/system/)

@@ -72,6 +72,7 @@ std::map<uint64_t, postcode_t>
 
 void PostCode::savePostCodes(postcode_t code)
 {
+    uint64_t usTimeOffset = 0;
     // steady_clock is a monotonic clock that is guaranteed to never be adjusted
     auto postCodeTimeSteady = std::chrono::steady_clock::now();
     uint64_t tsUS = std::chrono::duration_cast<std::chrono::microseconds>(
@@ -91,10 +92,33 @@ void PostCode::savePostCodes(postcode_t code)
                std::chrono::duration_cast<std::chrono::microseconds>(
                    postCodeTimeSteady - firstPostCodeTimeSteady)
                    .count();
+        usTimeOffset = tsUS - firstPostCodeUsSinceEpoch;
     }
 
     postCodes.insert(std::make_pair(tsUS, code));
     serialize(fs::path(strPostCodeListPath));
+
+#ifdef ENABLE_BIOS_POST_CODE_LOG
+    std::ostringstream hexCode;
+    hexCode << "0x" << std::setfill('0') << std::setw(2) << std::hex
+            << std::get<0>(code);
+
+    std::ostringstream timeOffsetStr;
+    // Set Fixed-Point Notation
+    timeOffsetStr << std::fixed;
+    // Set precision to 4 digits
+    timeOffsetStr << std::setprecision(4);
+    // Add double to stream
+    timeOffsetStr << static_cast<double>(usTimeOffset) / 1000 / 1000;
+
+    phosphor::logging::log<phosphor::logging::level::INFO>(
+        "BIOS POST Code",
+        phosphor::logging::entry("REDFISH_MESSAGE_ID=%s",
+                                 "OpenBMC.0.1.BIOSPOSTCode"),
+        phosphor::logging::entry(
+            "REDFISH_MESSAGE_ARGS=%d,%s,%s", currentBootCycleIndex,
+            timeOffsetStr.str().c_str(), hexCode.str().c_str()));
+#endif
 
     return;
 }
