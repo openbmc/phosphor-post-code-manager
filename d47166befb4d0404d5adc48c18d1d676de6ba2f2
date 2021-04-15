@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c76e60e_8dea76fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-04-15T03:28:15Z",
+      "side": 1,
+      "message": "Can you add a paragraph describing what we are trying to do? \"push model\" is not clear enough for reviewers who don\u0027t have context. Like \"Add journal logging to add the BIOSPostCode event into BMCWeb EventService.\" Please also link this doc https://github.com/openbmc/docs/blob/master/architecture/redfish-logging-in-bmcweb.md.",
+      "revId": "d47166befb4d0404d5adc48c18d1d676de6ba2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11c3779d_be947c62",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-04-15T03:28:15Z",
+      "side": 1,
+      "message": "nit: extra space",
+      "range": {
+        "startLine": 107,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 17
+      },
+      "revId": "d47166befb4d0404d5adc48c18d1d676de6ba2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
