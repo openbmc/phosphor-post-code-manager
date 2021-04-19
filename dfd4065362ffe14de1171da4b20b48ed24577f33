@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1891f64_fea553da",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2021-04-19T19:07:24Z",
+      "side": 1,
+      "message": "nit: switch the order here\nusTimeOffset \u003d  std::chrono::duration_cast\u003cstd::chrono::microseconds\u003e(\n                   postCodeTimeSteady - firstPostCodeTimeSteady)\n                   .count();\ntsUS \u003d usTimeOffset + firstPostCodeUsSinceEpoch;",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 56
+      },
+      "revId": "dfd4065362ffe14de1171da4b20b48ed24577f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67895844_ebf19259",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2021-04-19T19:07:24Z",
+      "side": 1,
+      "message": "Why is the secondary post code not included here?",
+      "range": {
+        "startLine": 104,
+        "startChar": 15,
+        "endLine": 104,
+        "endChar": 32
+      },
+      "revId": "dfd4065362ffe14de1171da4b20b48ed24577f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
