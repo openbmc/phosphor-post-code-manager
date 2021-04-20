@@ -117,6 +117,30 @@
       "revId": "dfd4065362ffe14de1171da4b20b48ed24577f33",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "542d39b3_f97b4da9",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2021-04-20T18:27:14Z",
+      "side": 1,
+      "message": "ACK. Secondary boot code is a recent addition. I am ok with address it in a different/later patch",
+      "parentUuid": "fca4757a_fc42a0f0",
+      "range": {
+        "startLine": 104,
+        "startChar": 15,
+        "endLine": 104,
+        "endChar": 32
+      },
+      "revId": "dfd4065362ffe14de1171da4b20b48ed24577f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
