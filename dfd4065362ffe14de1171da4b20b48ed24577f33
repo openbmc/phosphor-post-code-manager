@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e766319d_fe8e3615",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000903
+      },
+      "writtenOn": "2021-04-20T03:11:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f1891f64_fea553da",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 56
+      },
+      "revId": "dfd4065362ffe14de1171da4b20b48ed24577f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67895844_ebf19259",
         "filename": "src/post_code.cpp",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2021-04-19T19:07:24Z",
       "side": 1,
       "message": "Why is the secondary post code not included here?",
+      "range": {
+        "startLine": 104,
+        "startChar": 15,
+        "endLine": 104,
+        "endChar": 32
+      },
+      "revId": "dfd4065362ffe14de1171da4b20b48ed24577f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45f0cf3d_f2ab841f",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000903
+      },
+      "writtenOn": "2021-04-20T03:11:14Z",
+      "side": 1,
+      "message": "I think the event log should be consistent with redfish /redfish/v1/Systems/system/LogServices/PostCodes/Entries/.\nSo I did not consider the secondary post.\n\nIf there is a need to add a secondary post, what format do we need to display?\nCould you give me some advice?",
+      "parentUuid": "67895844_ebf19259",
       "range": {
         "startLine": 104,
         "startChar": 15,
