@@ -30,8 +30,8 @@ void PostCode::deleteAll()
               << std::endl;
     fs::create_directories(dir);
     postCodes.clear();
-    currentBootCycleIndex = 1;
-    currentBootCycleCount(1);
+    currentBootCycleIndex = 0;
+    currentBootCycleCount(0);
 }
 
 std::vector<postcode_t> PostCode::getPostCodes(uint16_t index)
