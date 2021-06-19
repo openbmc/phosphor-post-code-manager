@@ -33,8 +33,6 @@
 #include <xyz/openbmc_project/State/Boot/PostCode/server.hpp>
 #include <xyz/openbmc_project/State/Host/server.hpp>
 
-#define MaxPostCodeCycles 100
-
 const static constexpr char *CurrentBootCycleCountName =
     "CurrentBootCycleCount";
 const static constexpr char *CurrentBootCycleIndexName =
@@ -177,7 +175,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
             fs::path(strPostCodeListPath + strCurrentBootCycleCountName),
             count);
         currentBootCycleCount(count);
-        maxBootCycleNum(MaxPostCodeCycles);
+        maxBootCycleNum(MAX_BOOT_CYCLE_COUNT);
     }
     ~PostCode()
     {
