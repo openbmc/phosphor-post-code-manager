@@ -15,9 +15,15 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 set(DBUS_OBJECT_NAME "xyz/openbmc_project/State/Boot/PostCode0")
 set(DBUS_INTF_NAME "xyz.openbmc_project.State.Boot.PostCode")
+set(MAX_BOOT_CYCLE_COUNT 100 CACHE STRING "Max boot count Value")
+if(NOT MAX_BOOT_CYCLE_COUNT MATCHES "^([1-9][0-9]?|100)$")
+    message(FATAL_ERROR "Maximum boot cycle count must be a number from 1 to 100")
+endif()
 
 add_definitions(-DDBUS_OBJECT_NAME="/${DBUS_OBJECT_NAME}")
 add_definitions(-DDBUS_INTF_NAME="${DBUS_INTF_NAME}")
+add_definitions(-DMAX_BOOT_CYCLE_COUNT=${MAX_BOOT_CYCLE_COUNT})
+
 set(SRC_FILES src/post_code.cpp
     src/main.cpp )
 set ( SERVICE_FILES
