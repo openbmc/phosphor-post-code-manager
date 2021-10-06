@@ -142,7 +142,7 @@ fs::path PostCode::serialize(const std::string& path)
         cereal::JSONOutputArchive oarchivePostCodes(osPostCodes);
         oarchivePostCodes(postCodes);
     }
-    catch (cereal::Exception& e)
+    catch (const cereal::Exception& e)
     {
         phosphor::logging::log<phosphor::logging::level::ERR>(e.what());
         return "";
@@ -168,7 +168,7 @@ bool PostCode::deserialize(const fs::path& path, uint16_t& index)
         }
         return false;
     }
-    catch (cereal::Exception& e)
+    catch (const cereal::Exception& e)
     {
         phosphor::logging::log<phosphor::logging::level::ERR>(e.what());
         return false;
@@ -195,7 +195,7 @@ bool PostCode::deserializePostCodes(const fs::path& path,
         }
         return false;
     }
-    catch (cereal::Exception& e)
+    catch (const cereal::Exception& e)
     {
         phosphor::logging::log<phosphor::logging::level::ERR>(e.what());
         return false;
