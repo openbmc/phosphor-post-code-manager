@@ -14,6 +14,7 @@
 // limitations under the License.
 */
 #pragma once
+#include <config.h>
 #include <fcntl.h>
 #include <unistd.h>
 
