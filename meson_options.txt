@@ -1,0 +1,2 @@
+option('max-post-code-entries', type:'integer', min:1, max: 100, description: 'Maximum boot cycle count must be a number', value:100)
+option('bios-post-code-log', type:'feature',description:'Enable bios post code log',value:'disabled')
