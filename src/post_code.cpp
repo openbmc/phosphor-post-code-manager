@@ -39,8 +39,9 @@ std::vector<postcode_t> PostCode::getPostCodes(uint16_t index)
     std::vector<postcode_t> codesVec;
     if (1 == index && !postCodes.empty())
     {
-        for (auto& code : postCodes)
-            codesVec.push_back(code.second);
+        std::transform(postCodes.begin(), postCodes.end(),
+                       std::back_inserter(codesVec),
+                       [](const auto& kv) { return kv.second; });
     }
     else
     {
@@ -49,8 +50,8 @@ std::vector<postcode_t> PostCode::getPostCodes(uint16_t index)
         decltype(postCodes) codes;
         deserializePostCodes(
             fs::path(strPostCodeListPath + std::to_string(bootNum)), codes);
-        for (std::pair<uint64_t, postcode_t> code : codes)
-            codesVec.push_back(code.second);
+        std::transform(codes.begin(), codes.end(), std::back_inserter(codesVec),
+                       [](const auto& kv) { return kv.second; });
     }
     return codesVec;
 }
@@ -72,7 +73,6 @@ std::map<uint64_t, postcode_t>
 
 void PostCode::savePostCodes(postcode_t code)
 {
-    uint64_t usTimeOffset = 0;
     // steady_clock is a monotonic clock that is guaranteed to never be adjusted
     auto postCodeTimeSteady = std::chrono::steady_clock::now();
     uint64_t tsUS = std::chrono::duration_cast<std::chrono::microseconds>(
@@ -88,9 +88,10 @@ void PostCode::savePostCodes(postcode_t code)
     else
     {
         // calculating tsUS so it is monotonic within the same boot
-        usTimeOffset = std::chrono::duration_cast<std::chrono::microseconds>(
-                           postCodeTimeSteady - firstPostCodeTimeSteady)
-                           .count();
+        uint64_t usTimeOffset =
+            std::chrono::duration_cast<std::chrono::microseconds>(
+                postCodeTimeSteady - firstPostCodeTimeSteady)
+                .count();
         tsUS = usTimeOffset + firstPostCodeUsSinceEpoch;
     }
 
