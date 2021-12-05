@@ -91,7 +91,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
     PostCodeDataHolder *postcodeDataHolderObj =
         postcodeDataHolderObj->getInstance();
 
-    PostCode(sdbusplus::bus::bus &bus, const char *path, EventPtr &event) :
+    PostCode(sdbusplus::bus::bus &bus, const char *path, EventPtr & /*event*/) :
         sdbusplus::server::object_t<post_code, delete_all>(bus, path), bus(bus),
         propertiesChangedSignalRaw(
             bus,
