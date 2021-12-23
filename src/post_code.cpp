@@ -88,17 +88,17 @@ void PostCode::savePostCodes(postcode_t code)
     else
     {
         // calculating tsUS so it is monotonic within the same boot
-        uint64_t usTimeOffset =
-            std::chrono::duration_cast<std::chrono::microseconds>(
-                postCodeTimeSteady - firstPostCodeTimeSteady)
-                .count();
-        tsUS = usTimeOffset + firstPostCodeUsSinceEpoch;
+        tsUS = firstPostCodeUsSinceEpoch +
+               std::chrono::duration_cast<std::chrono::microseconds>(
+                   postCodeTimeSteady - firstPostCodeTimeSteady)
+                   .count();
     }
 
     postCodes.insert(std::make_pair(tsUS, code));
     serialize(fs::path(strPostCodeListPath));
 
 #ifdef ENABLE_BIOS_POST_CODE_LOG
+    uint64_t usTimeOffset = tsUS - firstPostCodeUsSinceEpoch;
     std::ostringstream hexCode;
     hexCode << "0x" << std::setfill('0') << std::setw(2) << std::hex
             << std::get<0>(code);
@@ -114,7 +114,7 @@ void PostCode::savePostCodes(postcode_t code)
     phosphor::logging::log<phosphor::logging::level::INFO>(
         "BIOS POST Code",
         phosphor::logging::entry("REDFISH_MESSAGE_ID=%s",
-                                 "OpenBMC.0.1.BIOSPOSTCode"),
+                                 "OpenBMC.0.2.BIOSPOSTCode"),
         phosphor::logging::entry(
             "REDFISH_MESSAGE_ARGS=%d,%s,%s", currentBootCycleIndex,
             timeOffsetStr.str().c_str(), hexCode.str().c_str()));
