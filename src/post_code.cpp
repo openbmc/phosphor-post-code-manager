@@ -73,6 +73,7 @@ std::map<uint64_t, postcode_t>
 
 void PostCode::savePostCodes(postcode_t code)
 {
+    uint64_t usTimeOffset = 0;
     // steady_clock is a monotonic clock that is guaranteed to never be adjusted
     auto postCodeTimeSteady = std::chrono::steady_clock::now();
     uint64_t tsUS = std::chrono::duration_cast<std::chrono::microseconds>(
@@ -88,10 +89,9 @@ void PostCode::savePostCodes(postcode_t code)
     else
     {
         // calculating tsUS so it is monotonic within the same boot
-        uint64_t usTimeOffset =
-            std::chrono::duration_cast<std::chrono::microseconds>(
-                postCodeTimeSteady - firstPostCodeTimeSteady)
-                .count();
+        usTimeOffset = std::chrono::duration_cast<std::chrono::microseconds>(
+                           postCodeTimeSteady - firstPostCodeTimeSteady)
+                           .count();
         tsUS = usTimeOffset + firstPostCodeUsSinceEpoch;
     }
 
