@@ -22,6 +22,30 @@
       "revId": "1109b77bffeb38cc2dde9b06b89398f3bfb8ecf0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1eae55d2_8763f413",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000903
+      },
+      "writtenOn": "2021-12-23T07:17:00Z",
+      "side": 1,
+      "message": "I move the declaration of the \u0027usTimeOffset\u0027 to #ifdef scope, it should fix this issue.",
+      "parentUuid": "271217fe_6e5e9d36",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 30
+      },
+      "revId": "1109b77bffeb38cc2dde9b06b89398f3bfb8ecf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
