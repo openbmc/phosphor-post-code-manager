@@ -1,0 +1,8 @@
+Code-Review+2: Kuiying Wang <wangkuiying.wky@alibaba-inc.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Ok-To-Test+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: ManojKiran Eda <manojkiran.eda@gmail.com>
+Submitted-at: Wed, 29 Dec 2021 11:13:48 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-post-code-manager/+/49846
+Project: openbmc/phosphor-post-code-manager
+Branch: refs/heads/master
