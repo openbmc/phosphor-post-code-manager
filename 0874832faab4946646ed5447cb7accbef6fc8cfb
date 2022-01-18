@@ -16,6 +16,23 @@
       "message": "Kuiying , can you merge this patch ?",
       "revId": "0874832faab4946646ed5447cb7accbef6fc8cfb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5723e80a_b0973d18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-01-18T03:39:02Z",
+      "side": 1,
+      "message": "Kuiying , can you merge this patch ? ",
+      "revId": "0874832faab4946646ed5447cb7accbef6fc8cfb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
