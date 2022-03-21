@@ -25,21 +25,9 @@ configure_file(output: 'config.h',
   configuration: conf_data
 )
 
-sdbusplus = dependency(
-    'sdbusplus',
-    fallback: ['sdbusplus', 'sdbusplus_dep']
-)
-
-phosphor_logging = dependency(
-    'phosphor-logging',
-    fallback: [
-        'phosphor-logging',
-        'phosphor_logging_dep'])
-
-phosphor_dbus_interfaces = dependency(
-  'phosphor-dbus-interfaces',
-  fallback: ['phosphor-dbus-interfaces', 'phosphor_dbus_interfaces_dep']
-)
+sdbusplus = dependency('sdbusplus')
+phosphor_logging = dependency('phosphor-logging')
+phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces')
 
 cxx = meson.get_compiler('cpp')
 cereal_dep = dependency('cereal', required: false)
