@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00ca7fbf_634e813d",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2022-10-27T09:31:35Z",
+      "side": 1,
+      "message": "It is not set dynamically by end user, right?",
+      "range": {
+        "startLine": 96,
+        "startChar": 27,
+        "endLine": 96,
+        "endChar": 55
+      },
+      "revId": "1d66b5ce49616760cf5fbb1ab02eb869e237c059",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
