@@ -93,6 +93,10 @@ void PostCode::savePostCodes(postcode_t code)
     }
 
     postCodes.insert(std::make_pair(tsUS, code));
+    if (postCodes.size() > MAX_POST_CODE_SIZE_PER_CYCLE)
+    {
+        postCodes.erase(postCodes.begin());
+    }
     serialize(fs::path(strPostCodeListPath));
 
 #ifdef ENABLE_BIOS_POST_CODE_LOG
