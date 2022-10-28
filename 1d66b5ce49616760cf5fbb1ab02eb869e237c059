@@ -3,6 +3,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6862c42c_280b1416",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-10-28T14:04:22Z",
+      "side": 1,
+      "message": "Can we get some more \"why\" here?  Why do we want / need to limit the file size?",
+      "revId": "1d66b5ce49616760cf5fbb1ab02eb869e237c059",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a66a4ab_f1f6a3e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-10-28T14:04:22Z",
+      "side": 1,
+      "message": "As I\u0027m looking at the code, it doesn\u0027t seem like it is actually in kilobytes.  It looks like it is count?",
+      "revId": "1d66b5ce49616760cf5fbb1ab02eb869e237c059",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de77c2d1_c599f8dd",
+        "filename": "meson_options.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-10-28T14:04:22Z",
+      "side": 1,
+      "message": "Can you add \u0027in kiB\u0027 to the description?",
+      "revId": "1d66b5ce49616760cf5fbb1ab02eb869e237c059",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "00ca7fbf_634e813d",
         "filename": "src/post_code.cpp",
         "patchSetId": 1
@@ -44,6 +95,23 @@
         "endLine": 96,
         "endChar": 55
       },
+      "revId": "1d66b5ce49616760cf5fbb1ab02eb869e237c059",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc785352_826ccf14",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-10-28T14:04:22Z",
+      "side": 1,
+      "message": "This seems to contradict the commit message description.  This isn\u0027t checking for size in kiB but instead is looking at count.",
       "revId": "1d66b5ce49616760cf5fbb1ab02eb869e237c059",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
