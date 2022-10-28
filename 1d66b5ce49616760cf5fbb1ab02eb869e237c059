@@ -22,6 +22,30 @@
       },
       "revId": "1d66b5ce49616760cf5fbb1ab02eb869e237c059",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "342019f7_a3d3a36c",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001618
+      },
+      "writtenOn": "2022-10-28T00:56:54Z",
+      "side": 1,
+      "message": "No.\nIt is set by end user in build time not run time.",
+      "parentUuid": "00ca7fbf_634e813d",
+      "range": {
+        "startLine": 96,
+        "startChar": 27,
+        "endLine": 96,
+        "endChar": 55
+      },
+      "revId": "1d66b5ce49616760cf5fbb1ab02eb869e237c059",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
