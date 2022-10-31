@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24c5b5a0_547a1373",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001618
+      },
+      "writtenOn": "2022-10-31T08:57:37Z",
+      "side": 1,
+      "message": "Yes. It means count.\nRevised it.",
+      "parentUuid": "7a66a4ab_f1f6a3e6",
+      "revId": "1d66b5ce49616760cf5fbb1ab02eb869e237c059",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de77c2d1_c599f8dd",
