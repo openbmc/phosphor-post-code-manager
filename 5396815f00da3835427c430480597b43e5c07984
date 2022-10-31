@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d207c61a_4b49d359",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-10-31T14:59:52Z",
+      "side": 1,
+      "message": "caused",
+      "range": {
+        "startLine": 14,
+        "startChar": 14,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "5396815f00da3835427c430480597b43e5c07984",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56a44f8f_3ae69a96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-10-31T14:59:52Z",
+      "side": 1,
+      "message": "prevent this risk",
+      "range": {
+        "startLine": 16,
+        "startChar": 37,
+        "endLine": 16,
+        "endChar": 59
+      },
+      "revId": "5396815f00da3835427c430480597b43e5c07984",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b9d0e52_934c6b48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-10-31T14:59:52Z",
+      "side": 1,
+      "message": "Few minor changes requested in commit message text for clarity.",
+      "revId": "5396815f00da3835427c430480597b43e5c07984",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
