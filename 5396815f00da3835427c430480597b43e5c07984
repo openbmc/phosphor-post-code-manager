@@ -110,6 +110,24 @@
       "message": "Few minor changes requested in commit message text for clarity.",
       "revId": "5396815f00da3835427c430480597b43e5c07984",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79f3edc2_33561485",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001618
+      },
+      "writtenOn": "2022-11-01T01:03:40Z",
+      "side": 1,
+      "message": "Revised it.",
+      "parentUuid": "0b9d0e52_934c6b48",
+      "revId": "5396815f00da3835427c430480597b43e5c07984",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
