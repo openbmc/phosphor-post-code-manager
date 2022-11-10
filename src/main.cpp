@@ -19,7 +19,7 @@
 
 int main(int argc, char* argv[])
 {
-    PostCodeDataHolder postcodeDataHolderObj =
+    PostCodeDataHolder& postcodeDataHolderObj =
         PostCodeDataHolder::getInstance();
 
     int arg;

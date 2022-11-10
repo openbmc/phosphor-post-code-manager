@@ -87,7 +87,7 @@ using delete_all =
 
 struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
 {
-    PostCodeDataHolder postcodeDataHolderObj =
+    PostCodeDataHolder &postcodeDataHolderObj =
         PostCodeDataHolder::getInstance();
 
     PostCode(sdbusplus::bus_t &bus, const char *path, EventPtr & /*event*/) :
