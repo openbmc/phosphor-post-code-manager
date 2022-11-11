@@ -1,0 +1,9 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: Patrick Williams <patrick@stwcx.xyz>
+Code-Review+1: Michael Garner <garnermic@gmail.com>
+Code-Review+2: Kuiying Wang <wangkuiying.wky@alibaba-inc.com>
+Submitted-by: Kuiying Wang <wangkuiying.wky@alibaba-inc.com>
+Submitted-at: Fri, 11 Nov 2022 01:50:24 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/phosphor-post-code-manager/+/58234
+Project: openbmc/phosphor-post-code-manager
+Branch: refs/heads/master
