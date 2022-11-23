@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "290659f5_08b10566",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2022-11-23T23:28:51Z",
+      "side": 1,
+      "message": "One alternative approach to improving execution speed would be to only write history to disk periodically (e.g. every 1 second), instead of upon each new POST code. This would use more disk space, but allow human inspection of the files in case there is any use case for that.",
+      "revId": "c9235fc17a15d2bced6bde6ca5aafb36146e4efb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
