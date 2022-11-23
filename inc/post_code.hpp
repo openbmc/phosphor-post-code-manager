@@ -18,12 +18,6 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#include <cereal/access.hpp>
-#include <cereal/archives/json.hpp>
-#include <cereal/cereal.hpp>
-#include <cereal/types/map.hpp>
-#include <cereal/types/tuple.hpp>
-#include <cereal/types/vector.hpp>
 #include <phosphor-logging/elog-errors.hpp>
 #include <xyz/openbmc_project/Collection/DeleteAll/server.hpp>
 #include <xyz/openbmc_project/Common/error.hpp>
