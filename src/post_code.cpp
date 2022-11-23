@@ -15,6 +15,13 @@
 */
 #include "post_code.hpp"
 
+#include <cereal/access.hpp>
+#include <cereal/archives/binary.hpp>
+#include <cereal/cereal.hpp>
+#include <cereal/types/map.hpp>
+#include <cereal/types/tuple.hpp>
+#include <cereal/types/vector.hpp>
+
 #include <iomanip>
 
 void PostCode::deleteAll()
@@ -124,16 +131,16 @@ fs::path PostCode::serialize(const fs::path& path)
     try
     {
         std::ofstream osIdx(path / CurrentBootCycleIndexName, std::ios::binary);
-        cereal::JSONOutputArchive idxArchive(osIdx);
+        cereal::BinaryOutputArchive idxArchive(osIdx);
         idxArchive(currentBootCycleIndex);
 
         uint16_t count = currentBootCycleCount();
         std::ofstream osCnt(path / CurrentBootCycleCountName, std::ios::binary);
-        cereal::JSONOutputArchive cntArchive(osCnt);
+        cereal::BinaryOutputArchive cntArchive(osCnt);
         cntArchive(count);
 
         std::ofstream osPostCodes(path / std::to_string(currentBootCycleIndex));
-        cereal::JSONOutputArchive oarchivePostCodes(osPostCodes);
+        cereal::BinaryOutputArchive oarchivePostCodes(osPostCodes);
         oarchivePostCodes(postCodes);
     }
     catch (const cereal::Exception& e)
@@ -156,7 +163,7 @@ bool PostCode::deserialize(const fs::path& path, uint16_t& index)
         if (fs::exists(path))
         {
             std::ifstream is(path, std::ios::in | std::ios::binary);
-            cereal::JSONInputArchive iarchive(is);
+            cereal::BinaryInputArchive iarchive(is);
             iarchive(index);
             return true;
         }
@@ -183,7 +190,7 @@ bool PostCode::deserializePostCodes(const fs::path& path,
         if (fs::exists(path))
         {
             std::ifstream is(path, std::ios::in | std::ios::binary);
-            cereal::JSONInputArchive iarchive(is);
+            cereal::BinaryInputArchive iarchive(is);
             iarchive(codes);
             return true;
         }
