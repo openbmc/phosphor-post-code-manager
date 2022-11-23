@@ -40,29 +40,12 @@ const static constexpr char* CurrentBootCycleCountName =
 const static constexpr char* CurrentBootCycleIndexName =
     "CurrentBootCycleIndex";
 
-// Singleton holder to store host/node and other path information
-class PostCodeDataHolder
-{
-    PostCodeDataHolder() {}
-
-  public:
-    static PostCodeDataHolder& getInstance()
-    {
-        static PostCodeDataHolder instance;
-        return instance;
-    }
-
-    int node;
-
-    const static constexpr char* PostCodePath =
-        "/xyz/openbmc_project/state/boot/raw";
-    const static constexpr char* PropertiesIntf =
-        "org.freedesktop.DBus.Properties";
-    const static constexpr char* PostCodeListPathPrefix =
-        "/var/lib/phosphor-post-code-manager/host";
-    const static constexpr char* HostStatePathPrefix =
-        "/xyz/openbmc_project/state/host";
-};
+const static constexpr char* PostCodePath =
+    "/xyz/openbmc_project/state/boot/raw";
+const static constexpr char* PostCodeListPathPrefix =
+    "/var/lib/phosphor-post-code-manager/host";
+const static constexpr char* HostStatePathPrefix =
+    "/xyz/openbmc_project/state/host";
 
 struct EventDeleter
 {
@@ -85,69 +68,55 @@ using delete_all =
 
 struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
 {
-    PostCodeDataHolder postcodeDataHolderObj =
-        PostCodeDataHolder::getInstance();
-
-    PostCode(sdbusplus::bus_t& bus, const char* path, EventPtr& /*event*/) :
+    PostCode(sdbusplus::bus_t& bus, const char* path, int nodeIndex) :
         sdbusplus::server::object_t<post_code, delete_all>(bus, path), bus(bus),
+        node(nodeIndex),
+        postCodeListPath(PostCodeListPathPrefix + std::to_string(node)),
         propertiesChangedSignalRaw(
             bus,
-            sdbusplus::bus::match::rules::type::signal() +
-                sdbusplus::bus::match::rules::member("PropertiesChanged") +
-                sdbusplus::bus::match::rules::path(
-                    postcodeDataHolderObj.PostCodePath +
-                    std::to_string(postcodeDataHolderObj.node)) +
-                sdbusplus::bus::match::rules::interface(
-                    postcodeDataHolderObj.PropertiesIntf),
+            sdbusplus::bus::match::rules::propertiesChanged(
+                PostCodePath + std::to_string(node),
+                "xyz.openbmc_project.State.Boot.Raw"),
             [this](sdbusplus::message_t& msg) {
-                std::string objectName;
+                std::string intfName;
                 std::map<std::string, std::variant<postcode_t>> msgData;
-                msg.read(objectName, msgData);
+                msg.read(intfName, msgData);
                 // Check if it was the Value property that changed.
                 auto valPropMap = msgData.find("Value");
+                if (valPropMap != msgData.end())
                 {
-                    if (valPropMap != msgData.end())
-                    {
-                        this->savePostCodes(
-                            std::get<postcode_t>(valPropMap->second));
-                    }
+                    this->savePostCodes(
+                        std::get<postcode_t>(valPropMap->second));
                 }
             }),
         propertiesChangedSignalCurrentHostState(
             bus,
-            sdbusplus::bus::match::rules::type::signal() +
-                sdbusplus::bus::match::rules::member("PropertiesChanged") +
-                sdbusplus::bus::match::rules::path(
-                    postcodeDataHolderObj.HostStatePathPrefix +
-                    std::to_string(postcodeDataHolderObj.node)) +
-                sdbusplus::bus::match::rules::interface(
-                    postcodeDataHolderObj.PropertiesIntf),
+            sdbusplus::bus::match::rules::propertiesChanged(
+                HostStatePathPrefix + std::to_string(node),
+                "xyz.openbmc_project.State.Host"),
             [this](sdbusplus::message_t& msg) {
-                std::string objectName;
+                std::string intfName;
                 std::map<std::string, std::variant<std::string>> msgData;
-                msg.read(objectName, msgData);
+                msg.read(intfName, msgData);
                 // Check if it was the Value property that changed.
                 auto valPropMap = msgData.find("CurrentHostState");
+                if (valPropMap != msgData.end())
                 {
-                    if (valPropMap != msgData.end())
+                    StateServer::Host::HostState currentHostState =
+                        StateServer::Host::convertHostStateFromString(
+                            std::get<std::string>(valPropMap->second));
+                    if (currentHostState == StateServer::Host::HostState::Off)
                     {
-                        StateServer::Host::HostState currentHostState =
-                            StateServer::Host::convertHostStateFromString(
-                                std::get<std::string>(valPropMap->second));
-                        if (currentHostState ==
-                            StateServer::Host::HostState::Off)
+                        if (this->postCodes.empty())
                         {
-                            if (this->postCodes.empty())
-                            {
-                                std::cerr << "HostState changed to OFF. Empty "
-                                             "postcode log, keep boot cycle at "
-                                          << this->currentBootCycleIndex
-                                          << std::endl;
-                            }
-                            else
-                            {
-                                this->postCodes.clear();
-                            }
+                            std::cerr << "HostState changed to OFF. Empty "
+                                         "postcode log, keep boot cycle at "
+                                      << this->currentBootCycleIndex
+                                      << std::endl;
+                        }
+                        else
+                        {
+                            this->postCodes.clear();
                         }
                     }
                 }
@@ -155,22 +124,11 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
     {
         phosphor::logging::log<phosphor::logging::level::INFO>(
             "PostCode is created");
-        auto dir = fs::path(postcodeDataHolderObj.PostCodeListPathPrefix +
-                            std::to_string(postcodeDataHolderObj.node));
-        fs::create_directories(dir);
-        strPostCodeListPath = postcodeDataHolderObj.PostCodeListPathPrefix +
-                              std::to_string(postcodeDataHolderObj.node) + "/";
-        strCurrentBootCycleIndexName = CurrentBootCycleIndexName;
-        uint16_t index = 0;
-        deserialize(
-            fs::path(strPostCodeListPath + strCurrentBootCycleIndexName),
-            index);
-        currentBootCycleIndex = index;
-        strCurrentBootCycleCountName = CurrentBootCycleCountName;
+        fs::create_directories(postCodeListPath);
+        deserialize(postCodeListPath / CurrentBootCycleIndexName,
+                    currentBootCycleIndex);
         uint16_t count = 0;
-        deserialize(
-            fs::path(strPostCodeListPath + strCurrentBootCycleCountName),
-            count);
+        deserialize(postCodeListPath / CurrentBootCycleCountName, count);
         currentBootCycleCount(count);
         maxBootCycleNum(MAX_BOOT_CYCLE_COUNT);
     }
@@ -186,17 +144,17 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
     uint16_t getBootNum(const uint16_t index) const;
 
     sdbusplus::bus_t& bus;
+    int node;
     std::chrono::time_point<std::chrono::steady_clock> firstPostCodeTimeSteady;
     uint64_t firstPostCodeUsSinceEpoch;
     std::map<uint64_t, postcode_t> postCodes;
-    std::string strPostCodeListPath;
-    std::string strCurrentBootCycleIndexName;
-    uint16_t currentBootCycleIndex;
-    std::string strCurrentBootCycleCountName;
-    void savePostCodes(postcode_t code);
+    fs::path postCodeListPath;
+    uint16_t currentBootCycleIndex = 0;
     sdbusplus::bus::match_t propertiesChangedSignalRaw;
     sdbusplus::bus::match_t propertiesChangedSignalCurrentHostState;
-    fs::path serialize(const std::string& path);
+
+    void savePostCodes(postcode_t code);
+    fs::path serialize(const fs::path& path);
     bool deserialize(const fs::path& path, uint16_t& index);
     bool deserializePostCodes(const fs::path& path,
                               std::map<uint64_t, postcode_t>& codes);
