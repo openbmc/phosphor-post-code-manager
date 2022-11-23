@@ -19,12 +19,10 @@
 
 int main(int argc, char* argv[])
 {
-    PostCodeDataHolder& postcodeDataHolderObj =
-        PostCodeDataHolder::getInstance();
-
     int arg;
     int optIndex = 0;
     int ret = 0;
+    int node = 0;
 
     std::string intfName;
 
@@ -36,7 +34,7 @@ int main(int argc, char* argv[])
         switch (arg)
         {
             case 'h':
-                postcodeDataHolderObj.node = std::stoi(optarg);
+                node = std::stoi(optarg);
                 break;
             default:
                 break;
@@ -59,15 +57,14 @@ int main(int argc, char* argv[])
 
     sdbusplus::bus_t bus = sdbusplus::bus::new_default();
 
-    std::string dbusObjName =
-        DBUS_OBJECT_NAME + std::to_string(postcodeDataHolderObj.node);
+    std::string dbusObjName = DBUS_OBJECT_NAME + std::to_string(node);
     sdbusplus::server::manager_t m{bus, dbusObjName.c_str()};
 
-    intfName = DBUS_INTF_NAME + std::to_string(postcodeDataHolderObj.node);
+    intfName = DBUS_INTF_NAME + std::to_string(node);
 
     bus.request_name(intfName.c_str());
 
-    PostCode postCode{bus, dbusObjName.c_str(), eventP};
+    PostCode postCode{bus, dbusObjName.c_str(), node};
 
     try
     {
