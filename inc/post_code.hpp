@@ -24,31 +24,29 @@
 #include <cereal/types/map.hpp>
 #include <cereal/types/tuple.hpp>
 #include <cereal/types/vector.hpp>
-#include <chrono>
-#include <filesystem>
-#include <fstream>
-#include <iostream>
 #include <phosphor-logging/elog-errors.hpp>
 #include <xyz/openbmc_project/Collection/DeleteAll/server.hpp>
 #include <xyz/openbmc_project/Common/error.hpp>
 #include <xyz/openbmc_project/State/Boot/PostCode/server.hpp>
 #include <xyz/openbmc_project/State/Host/server.hpp>
 
-const static constexpr char *CurrentBootCycleCountName =
+#include <chrono>
+#include <filesystem>
+#include <fstream>
+#include <iostream>
+
+const static constexpr char* CurrentBootCycleCountName =
     "CurrentBootCycleCount";
-const static constexpr char *CurrentBootCycleIndexName =
+const static constexpr char* CurrentBootCycleIndexName =
     "CurrentBootCycleIndex";
 
 // Singleton holder to store host/node and other path information
 class PostCodeDataHolder
 {
-
-    PostCodeDataHolder()
-    {
-    }
+    PostCodeDataHolder() {}
 
   public:
-    static PostCodeDataHolder &getInstance()
+    static PostCodeDataHolder& getInstance()
     {
         static PostCodeDataHolder instance;
         return instance;
@@ -56,19 +54,19 @@ class PostCodeDataHolder
 
     int node;
 
-    const static constexpr char *PostCodePath =
+    const static constexpr char* PostCodePath =
         "/xyz/openbmc_project/state/boot/raw";
-    const static constexpr char *PropertiesIntf =
+    const static constexpr char* PropertiesIntf =
         "org.freedesktop.DBus.Properties";
-    const static constexpr char *PostCodeListPathPrefix =
+    const static constexpr char* PostCodeListPathPrefix =
         "/var/lib/phosphor-post-code-manager/host";
-    const static constexpr char *HostStatePathPrefix =
+    const static constexpr char* HostStatePathPrefix =
         "/xyz/openbmc_project/state/host";
 };
 
 struct EventDeleter
 {
-    void operator()(sd_event *event) const
+    void operator()(sd_event* event) const
     {
         sd_event_unref(event);
     }
@@ -90,7 +88,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
     PostCodeDataHolder postcodeDataHolderObj =
         PostCodeDataHolder::getInstance();
 
-    PostCode(sdbusplus::bus_t &bus, const char *path, EventPtr & /*event*/) :
+    PostCode(sdbusplus::bus_t& bus, const char* path, EventPtr& /*event*/) :
         sdbusplus::server::object_t<post_code, delete_all>(bus, path), bus(bus),
         propertiesChangedSignalRaw(
             bus,
@@ -101,7 +99,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
                     std::to_string(postcodeDataHolderObj.node)) +
                 sdbusplus::bus::match::rules::interface(
                     postcodeDataHolderObj.PropertiesIntf),
-            [this](sdbusplus::message_t &msg) {
+            [this](sdbusplus::message_t& msg) {
                 std::string objectName;
                 std::map<std::string, std::variant<postcode_t>> msgData;
                 msg.read(objectName, msgData);
@@ -124,7 +122,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
                     std::to_string(postcodeDataHolderObj.node)) +
                 sdbusplus::bus::match::rules::interface(
                     postcodeDataHolderObj.PropertiesIntf),
-            [this](sdbusplus::message_t &msg) {
+            [this](sdbusplus::message_t& msg) {
                 std::string objectName;
                 std::map<std::string, std::variant<std::string>> msgData;
                 msg.read(objectName, msgData);
@@ -176,9 +174,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
         currentBootCycleCount(count);
         maxBootCycleNum(MAX_BOOT_CYCLE_COUNT);
     }
-    ~PostCode()
-    {
-    }
+    ~PostCode() {}
 
     std::vector<postcode_t> getPostCodes(uint16_t index) override;
     std::map<uint64_t, postcode_t>
@@ -189,7 +185,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
     void incrBootCycle();
     uint16_t getBootNum(const uint16_t index) const;
 
-    sdbusplus::bus_t &bus;
+    sdbusplus::bus_t& bus;
     std::chrono::time_point<std::chrono::steady_clock> firstPostCodeTimeSteady;
     uint64_t firstPostCodeUsSinceEpoch;
     std::map<uint64_t, postcode_t> postCodes;
@@ -200,8 +196,8 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
     void savePostCodes(postcode_t code);
     sdbusplus::bus::match_t propertiesChangedSignalRaw;
     sdbusplus::bus::match_t propertiesChangedSignalCurrentHostState;
-    fs::path serialize(const std::string &path);
-    bool deserialize(const fs::path &path, uint16_t &index);
-    bool deserializePostCodes(const fs::path &path,
-                              std::map<uint64_t, postcode_t> &codes);
+    fs::path serialize(const std::string& path);
+    bool deserialize(const fs::path& path, uint16_t& index);
+    bool deserializePostCodes(const fs::path& path,
+                              std::map<uint64_t, postcode_t>& codes);
 };
