@@ -58,13 +58,16 @@ int main(int argc, char* argv[])
     event = nullptr;
 
     sdbusplus::bus_t bus = sdbusplus::bus::new_default();
-    sdbusplus::server::manager_t m{bus, DBUS_OBJECT_NAME};
+
+    std::string dbusObjName =
+        DBUS_OBJECT_NAME + std::to_string(postcodeDataHolderObj.node);
+    sdbusplus::server::manager_t m{bus, dbusObjName.c_str()};
 
     intfName = DBUS_INTF_NAME + std::to_string(postcodeDataHolderObj.node);
 
     bus.request_name(intfName.c_str());
 
-    PostCode postCode{bus, DBUS_OBJECT_NAME, eventP};
+    PostCode postCode{bus, dbusObjName.c_str(), eventP};
 
     try
     {
