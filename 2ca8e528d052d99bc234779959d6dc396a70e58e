@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd3f2d82_ff22f018",
+        "filename": "inc/post_code.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2022-12-08T22:40:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b58e78a4_c8b944df",
+      "range": {
+        "startLine": 71,
+        "startChar": 58,
+        "endLine": 71,
+        "endChar": 63
+      },
+      "revId": "2ca8e528d052d99bc234779959d6dc396a70e58e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0eaa8df_2d67f36c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-29T18:42:45Z",
       "side": 1,
       "message": "nit: move to initialization list",
+      "range": {
+        "startLine": 126,
+        "startChar": 8,
+        "endLine": 126,
+        "endChar": 73
+      },
+      "revId": "2ca8e528d052d99bc234779959d6dc396a70e58e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4867491_64705fa8",
+        "filename": "inc/post_code.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2022-12-08T22:40:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0eaa8df_2d67f36c",
       "range": {
         "startLine": 126,
         "startChar": 8,
