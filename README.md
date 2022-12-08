@@ -8,7 +8,7 @@ responsible for exposing the BIOS Post Codes to rest of the world via redfish.
 
 To build phosphor-post-code-manager package , do the following steps:
 
-``` bash
+```bash
 meson <build directory>
 ninja -C <build directory>
 ```
@@ -16,10 +16,10 @@ ninja -C <build directory>
 ## Hosted Services
 
 This repository ships `xyz.openbmc_project.State.Boot.PostCode.service` systemd
-service along with its [template
-version](https://github.com/openbmc/docs/blob/master/designs/multi-host-postcode.md)
-and a tiny binary that exposes the necessary [dbus interfaces &
-methods](https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/State/Boot/PostCode.interface.yaml)
+service along with its
+[template version](https://github.com/openbmc/docs/blob/master/designs/multi-host-postcode.md)
+and a tiny binary that exposes the necessary
+[dbus interfaces & methods](https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/State/Boot/PostCode.interface.yaml)
 to extract the POST codes per boot cycle.
 
 ## Architecture
