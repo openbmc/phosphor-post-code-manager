@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "babb4b32_d098dd56",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2022-12-11T22:54:03Z",
+      "side": 1,
+      "message": "Looks like included in https://gerrit.openbmc.org/c/openbmc/phosphor-post-code-manager/+/58933",
+      "revId": "aa23eb24c4455022dc9f24ae77705ddddfdad80c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
