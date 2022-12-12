@@ -33,6 +33,7 @@
 
 owners:
 - kuiying.wang@intel.com
+- zhikui.ren@intel.com
 
 reviewers:
 
@@ -42,3 +43,6 @@ openbmc:
 - name: Kuiying Wang
   email: kuiying.wang@intel.com
   discord: kuiyingw
+- name: Zhikui Ren
+  email: zhikui.ren@intel.com
+  discord: Zhikui
