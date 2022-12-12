@@ -33,6 +33,7 @@
 
 owners:
 - wangkuiying.wky@alibaba-inc.com
+- zhikui.ren@intel.com
 
 reviewers:
 
@@ -42,3 +43,6 @@ openbmc:
 - name: Kuiying Wang
   email: wangkuiying.wky@alibaba-inc.com
   discord: Kwin
+- name: Zhikui Ren
+  email: zhikui.ren@intel.com
+  discord: Zhikui
