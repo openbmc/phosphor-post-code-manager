@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
 
     bus.request_name(intfName.c_str());
 
-    PostCode postCode{bus, dbusObjName.c_str(), node};
+    PostCode postCode{bus, dbusObjName.c_str(), eventP, node};
 
     try
     {
