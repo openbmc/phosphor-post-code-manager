@@ -21,7 +21,6 @@
 #include <cereal/types/map.hpp>
 #include <cereal/types/tuple.hpp>
 #include <cereal/types/vector.hpp>
-
 #include <iomanip>
 
 void PostCode::deleteAll()
@@ -72,6 +71,12 @@ std::map<uint64_t, postcode_t>
 
 void PostCode::savePostCodes(postcode_t code)
 {
+    if (!timer)
+    {
+        timer = std::make_unique<phosphor::Timer>(
+            event.get(), [this]() { serialize(postCodeListPath); });
+    }
+
     // steady_clock is a monotonic clock that is guaranteed to never be adjusted
     auto postCodeTimeSteady = std::chrono::steady_clock::now();
     uint64_t tsUS = std::chrono::duration_cast<std::chrono::microseconds>(
@@ -98,7 +103,12 @@ void PostCode::savePostCodes(postcode_t code)
     {
         postCodes.erase(postCodes.begin());
     }
-    serialize(postCodeListPath);
+
+    if (!timer->isRunning())
+    {
+        timer->start(std::chrono::duration_cast<std::chrono::microseconds>(
+            std::chrono::seconds(1)));
+    }
 
 #ifdef ENABLE_BIOS_POST_CODE_LOG
     uint64_t usTimeOffset = tsUS - firstPostCodeUsSinceEpoch;
