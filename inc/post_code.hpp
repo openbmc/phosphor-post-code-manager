@@ -19,6 +19,7 @@
 #include <unistd.h>
 
 #include <phosphor-logging/elog-errors.hpp>
+#include <sdbusplus/timer.hpp>
 #include <xyz/openbmc_project/Collection/DeleteAll/server.hpp>
 #include <xyz/openbmc_project/Common/error.hpp>
 #include <xyz/openbmc_project/State/Boot/PostCode/server.hpp>
@@ -62,9 +63,10 @@ using delete_all =
 
 struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
 {
-    PostCode(sdbusplus::bus_t& bus, const char* path, int nodeIndex) :
-        sdbusplus::server::object_t<post_code, delete_all>(bus, path), bus(bus),
-        node(nodeIndex),
+    PostCode(sdbusplus::bus_t& bus, const char* path, EventPtr& event,
+             int nodeIndex) :
+        sdbusplus::server::object_t<post_code, delete_all>(bus, path),
+        bus(bus), node(nodeIndex), event(event),
         postCodeListPath(PostCodeListPathPrefix + std::to_string(node)),
         propertiesChangedSignalRaw(
             bus,
@@ -137,6 +139,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
     void incrBootCycle();
     uint16_t getBootNum(const uint16_t index) const;
 
+    std::unique_ptr<phosphor::Timer> timer;
     sdbusplus::bus_t& bus;
     int node;
     std::chrono::time_point<std::chrono::steady_clock> firstPostCodeTimeSteady;
@@ -146,7 +149,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
     uint16_t currentBootCycleIndex = 0;
     sdbusplus::bus::match_t propertiesChangedSignalRaw;
     sdbusplus::bus::match_t propertiesChangedSignalCurrentHostState;
-
+    EventPtr& event;
     void savePostCodes(postcode_t code);
     fs::path serialize(const fs::path& path);
     bool deserialize(const fs::path& path, uint16_t& index);
