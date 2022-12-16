@@ -73,6 +73,23 @@
       "message": "Two points here:\n1. It is not good to hardcode\n2. I don\u0027t think 1s is a reasonable interval, because here is saving into the file, but not memory update.",
       "revId": "3e6267a4dce0ec1bc20fa082a24f44dd85931149",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fb52264_14c3d7fe",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2022-12-16T02:21:50Z",
+      "side": 1,
+      "message": "Note: I suggest to monitor the memory usage to trigger saving to file, but not the timer interval",
+      "revId": "3e6267a4dce0ec1bc20fa082a24f44dd85931149",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
