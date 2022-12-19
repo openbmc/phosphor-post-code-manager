@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "330eaf7c_c9c51d97",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001618
+      },
+      "writtenOn": "2022-12-19T09:32:11Z",
+      "side": 1,
+      "message": "We will add an else branch and do some tests",
+      "parentUuid": "96226e56_1022c8cf",
+      "revId": "3e6267a4dce0ec1bc20fa082a24f44dd85931149",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c8edcd0_dc090818",
