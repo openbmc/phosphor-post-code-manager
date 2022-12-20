@@ -221,6 +221,24 @@
       "parentUuid": "e3a4640a_0dcc15db",
       "revId": "3e6267a4dce0ec1bc20fa082a24f44dd85931149",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b733f04_2580a41f",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2022-12-20T18:45:07Z",
+      "side": 1,
+      "message": "The OOM was not because of post code file size. OOM can happen when new post code is coming in a faster rate than an update cycle: dbus update and serialize the new code into the file. Using a timer to only save the file when there is a gap in the post code can prevent this to happen.",
+      "parentUuid": "f2c77273_3b1cf4ae",
+      "revId": "3e6267a4dce0ec1bc20fa082a24f44dd85931149",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
