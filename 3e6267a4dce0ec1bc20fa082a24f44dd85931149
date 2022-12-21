@@ -124,6 +124,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4707ff46_7e149365",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2022-12-21T17:58:11Z",
+      "side": 1,
+      "message": "You can use the pattern here https://github.com/openbmc/dbus-sensors/blob/master/src/ADCSensorMain.cpp#L325\n\nwhere a new post code update would cancel existing timer and restart a new one. So if file will be written if there is no new post code for one second",
+      "parentUuid": "7494635d_d405fc03",
+      "revId": "3e6267a4dce0ec1bc20fa082a24f44dd85931149",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c8edcd0_dc090818",
