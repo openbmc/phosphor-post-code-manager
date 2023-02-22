@@ -15,11 +15,16 @@ project(
 conf_data = configuration_data()
 conf_data.set_quoted('DBUS_OBJECT_NAME', '/xyz/openbmc_project/State/Boot/PostCode')
 conf_data.set_quoted('DBUS_INTF_NAME','xyz.openbmc_project.State.Boot.PostCode')
+conf_data.set_quoted('POSTCODE_DISPLAY_PATH', get_option('postcode-display-path'))
 conf_data.set('MAX_BOOT_CYCLE_COUNT',get_option('max-boot-cycle-count'))
 conf_data.set('MAX_POST_CODE_SIZE_PER_CYCLE',get_option('max-post-code-size-per-cycle'))
 
 if get_option('bios-post-code-log').enabled()
   add_project_arguments('-DENABLE_BIOS_POST_CODE_LOG',language: 'cpp')
+endif
+
+if get_option('ocp-debug-card').enabled()
+  add_project_arguments('-DENABLE_OCP_DEBUG_CARD',language: 'cpp')
 endif
 
 configure_file(output: 'config.h',
