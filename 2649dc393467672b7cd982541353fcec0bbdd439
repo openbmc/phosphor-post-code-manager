@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a56da5b1_2f27bb1d",
+        "filename": "meson_options.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2023-02-22T08:04:00Z",
+      "side": 1,
+      "message": "Where to setup such path?",
+      "range": {
+        "startLine": 5,
+        "startChar": 8,
+        "endLine": 5,
+        "endChar": 29
+      },
+      "revId": "2649dc393467672b7cd982541353fcec0bbdd439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d7c27f9_24a27d40",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2023-02-22T08:04:00Z",
+      "side": 1,
+      "message": "Do you plan to set the post code to hex like below line 127?",
+      "range": {
+        "startLine": 120,
+        "startChar": 10,
+        "endLine": 120,
+        "endChar": 43
+      },
+      "revId": "2649dc393467672b7cd982541353fcec0bbdd439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
