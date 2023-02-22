@@ -112,6 +112,15 @@ void PostCode::savePostCodes(postcode_t code)
         timer->start(std::chrono::microseconds(timeoutMicroSeconds));
     }
 
+#ifdef ENABLE_OCP_DEBUG_CARD
+    std::string postCodeDisplayPath =
+        POSTCODE_DISPLAY_PATH + std::to_string(node);
+
+    std::ofstream postCodeDisplayFile(postCodeDisplayPath);
+    postCodeDisplayFile << std::get<0>(code) << std::endl;
+    postCodeDisplayFile.close();
+#endif
+
 #ifdef ENABLE_BIOS_POST_CODE_LOG
     uint64_t usTimeOffset = tsUS - firstPostCodeUsSinceEpoch;
     std::ostringstream hexCode;
