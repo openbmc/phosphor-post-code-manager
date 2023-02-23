@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06ba0a11_21c56f93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001618
+      },
+      "writtenOn": "2023-02-23T02:25:44Z",
+      "side": 1,
+      "message": "Hi Jiaqing, \nIt uses CLD driver, which will though CPLD setting ocp-debug card \n- link: https://lore.kernel.org/lkml/20230117094425.19004-1-Delphine_CC_Chiu@Wiwynn.com/",
+      "parentUuid": "087f0001_ba8e4537",
+      "revId": "2649dc393467672b7cd982541353fcec0bbdd439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a56da5b1_2f27bb1d",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-02-22T08:04:00Z",
       "side": 1,
       "message": "Where to setup such path?",
+      "range": {
+        "startLine": 5,
+        "startChar": 8,
+        "endLine": 5,
+        "endChar": 29
+      },
+      "revId": "2649dc393467672b7cd982541353fcec0bbdd439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60ec6ace_5f96e075",
+        "filename": "meson_options.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001618
+      },
+      "writtenOn": "2023-02-23T02:25:44Z",
+      "side": 1,
+      "message": "Hi Kuiying, this postcode-display-path was setting by our CLD driver, which will though CPLD setting ocp-debug card \n- link: https://lore.kernel.org/lkml/20230117094425.19004-1-Delphine_CC_Chiu@Wiwynn.com/\nThis config is defined as below:\n- https://gerrit.openbmc.org/c/openbmc/openbmc/+/60812",
+      "parentUuid": "a56da5b1_2f27bb1d",
       "range": {
         "startLine": 5,
         "startChar": 8,
