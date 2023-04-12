@@ -7,7 +7,7 @@ project(
         'werror=true',
     ],
     license: 'Apache-2.0',
-    meson_version: '>=0.57.0',
+    meson_version: '>=0.58.0',
     version: '1.0',
 )
 
@@ -49,7 +49,7 @@ if not has_cereal
 endif
 
 systemd_system_unit_dir = dependency('systemd').get_variable(
-          pkgconfig: 'systemdsystemunitdir')
+          'systemdsystemunitdir')
 
 install_subdir('service_files',
                install_dir : systemd_system_unit_dir,
