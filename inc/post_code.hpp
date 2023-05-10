@@ -74,49 +74,47 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
                 PostCodePath + std::to_string(node),
                 "xyz.openbmc_project.State.Boot.Raw"),
             [this](sdbusplus::message_t& msg) {
-                std::string intfName;
-                std::map<std::string, std::variant<postcode_t>> msgData;
-                msg.read(intfName, msgData);
-                // Check if it was the Value property that changed.
-                auto valPropMap = msgData.find("Value");
-                if (valPropMap != msgData.end())
-                {
-                    this->savePostCodes(
-                        std::get<postcode_t>(valPropMap->second));
-                }
+        std::string intfName;
+        std::map<std::string, std::variant<postcode_t>> msgData;
+        msg.read(intfName, msgData);
+        // Check if it was the Value property that changed.
+        auto valPropMap = msgData.find("Value");
+        if (valPropMap != msgData.end())
+        {
+            this->savePostCodes(std::get<postcode_t>(valPropMap->second));
+        }
             }),
-        propertiesChangedSignalCurrentHostState(
-            bus,
-            sdbusplus::bus::match::rules::propertiesChanged(
-                HostStatePathPrefix + std::to_string(node),
-                "xyz.openbmc_project.State.Host"),
-            [this](sdbusplus::message_t& msg) {
-                std::string intfName;
-                std::map<std::string, std::variant<std::string>> msgData;
-                msg.read(intfName, msgData);
-                // Check if it was the Value property that changed.
-                auto valPropMap = msgData.find("CurrentHostState");
-                if (valPropMap != msgData.end())
+    propertiesChangedSignalCurrentHostState(
+        bus,
+        sdbusplus::bus::match::rules::propertiesChanged(
+            HostStatePathPrefix + std::to_string(node),
+            "xyz.openbmc_project.State.Host"),
+        [this](sdbusplus::message_t& msg) {
+        std::string intfName;
+        std::map<std::string, std::variant<std::string>> msgData;
+        msg.read(intfName, msgData);
+        // Check if it was the Value property that changed.
+        auto valPropMap = msgData.find("CurrentHostState");
+        if (valPropMap != msgData.end())
+        {
+            StateServer::Host::HostState currentHostState =
+                StateServer::Host::convertHostStateFromString(
+                    std::get<std::string>(valPropMap->second));
+            if (currentHostState == StateServer::Host::HostState::Off)
+            {
+                if (this->postCodes.empty())
                 {
-                    StateServer::Host::HostState currentHostState =
-                        StateServer::Host::convertHostStateFromString(
-                            std::get<std::string>(valPropMap->second));
-                    if (currentHostState == StateServer::Host::HostState::Off)
-                    {
-                        if (this->postCodes.empty())
-                        {
-                            std::cerr << "HostState changed to OFF. Empty "
-                                         "postcode log, keep boot cycle at "
-                                      << this->currentBootCycleIndex
-                                      << std::endl;
-                        }
-                        else
-                        {
-                            this->postCodes.clear();
-                        }
-                    }
+                    std::cerr << "HostState changed to OFF. Empty "
+                                 "postcode log, keep boot cycle at "
+                              << this->currentBootCycleIndex << std::endl;
                 }
-            })
+                else
+                {
+                    this->postCodes.clear();
+                }
+            }
+        }
+        })
     {
         phosphor::logging::log<phosphor::logging::level::INFO>(
             "PostCode is created");
