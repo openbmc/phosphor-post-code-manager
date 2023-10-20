@@ -83,13 +83,13 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
         {
             this->savePostCodes(std::get<postcode_t>(valPropMap->second));
         }
-            }),
-    propertiesChangedSignalCurrentHostState(
-        bus,
-        sdbusplus::bus::match::rules::propertiesChanged(
-            HostStatePathPrefix + std::to_string(node),
-            "xyz.openbmc_project.State.Host"),
-        [this](sdbusplus::message_t& msg) {
+    }),
+        propertiesChangedSignalCurrentHostState(
+            bus,
+            sdbusplus::bus::match::rules::propertiesChanged(
+                HostStatePathPrefix + std::to_string(node),
+                "xyz.openbmc_project.State.Host"),
+            [this](sdbusplus::message_t& msg) {
         std::string intfName;
         std::map<std::string, std::variant<std::string>> msgData;
         msg.read(intfName, msgData);
@@ -114,7 +114,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
                 }
             }
         }
-        })
+    })
     {
         phosphor::logging::log<phosphor::logging::level::INFO>(
             "PostCode is created");
