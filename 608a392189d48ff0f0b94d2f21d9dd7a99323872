@@ -1,0 +1,7 @@
+Code-Review+2: Zhikui Ren <zhikui.ren@intel.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Zhikui Ren <zhikui.ren@intel.com>
+Submitted-at: Fri, 27 Oct 2023 22:50:50 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/phosphor-post-code-manager/+/67217
+Project: openbmc/phosphor-post-code-manager
+Branch: refs/heads/master
