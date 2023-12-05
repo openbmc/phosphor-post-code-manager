@@ -76,7 +76,7 @@ void PostCode::savePostCodes(postcode_t code)
 {
     if (!timer)
     {
-        timer = std::make_unique<phosphor::Timer>(
+        timer = std::make_unique<sdbusplus::Timer>(
             event.get(), [this]() { serialize(postCodeListPath); });
     }
 

@@ -137,7 +137,7 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
     void incrBootCycle();
     uint16_t getBootNum(const uint16_t index) const;
 
-    std::unique_ptr<phosphor::Timer> timer;
+    std::unique_ptr<sdbusplus::Timer> timer;
     sdbusplus::bus_t& bus;
     EventPtr& event;
     int node;
