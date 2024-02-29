@@ -1,5 +1,5 @@
 [Unit]
-Description=Post code manager
+Description=Post code manager (host %i)
 
 [Service]
 ExecStart=/usr/bin/env post-code-manager --host %i
