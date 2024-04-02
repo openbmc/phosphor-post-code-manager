@@ -40,7 +40,7 @@ has_cereal = cxx.has_header_symbol(
     required: false)
 if not has_cereal
     cereal_opts = import('cmake').subproject_options()
-    cereal_opts.add_cmake_defines({'BUILD_TESTS': 'OFF'})
+    cereal_opts.add_cmake_defines({'BUILD_TESTS': 'OFF', 'SKIP_PERFORMANCE_COMPARISON': 'ON'})
     cereal_proj = import('cmake').subproject(
         'cereal',
         options: cereal_opts,
