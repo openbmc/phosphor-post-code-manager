@@ -26,7 +26,7 @@ to extract the POST codes per boot cycle.
 
 This repository is tightly coupled with
 [phosphor-host-postd](https://github.com/openbmc/phosphor-host-postd) OpenBMC
-respository which is responsible for emitting the dbus signals for every new
+repository which is responsible for emitting the dbus signals for every new
 POST Code.
 
 phosphor-post-code-manager is architected to look for the property changed
