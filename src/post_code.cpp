@@ -76,8 +76,9 @@ void PostCode::savePostCodes(postcode_t code)
 {
     if (!timer)
     {
-        timer = std::make_unique<sdbusplus::Timer>(
-            event.get(), [this]() { serialize(postCodeListPath); });
+        timer = std::make_unique<sdbusplus::Timer>(event.get(), [this]() {
+            serialize(postCodeListPath);
+        });
     }
 
     // steady_clock is a monotonic clock that is guaranteed to never be adjusted
@@ -114,8 +115,8 @@ void PostCode::savePostCodes(postcode_t code)
 
     if (strlen(POSTCODE_DISPLAY_PATH) > 0)
     {
-        std::string postCodeDisplayPath = POSTCODE_DISPLAY_PATH +
-                                          std::to_string(node);
+        std::string postCodeDisplayPath =
+            POSTCODE_DISPLAY_PATH + std::to_string(node);
 
         std::ofstream postCodeDisplayFile(postCodeDisplayPath);
         postCodeDisplayFile << "0x" << std::setfill('0') << std::setw(2)
