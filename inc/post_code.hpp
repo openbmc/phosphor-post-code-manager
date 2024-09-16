@@ -50,7 +50,7 @@ struct EventDeleter
     }
 };
 using EventPtr = std::unique_ptr<sd_event, EventDeleter>;
-using primarycode_t = uint64_t;
+using primarycode_t = std::vector<uint8_t>;
 using secondarycode_t = std::vector<uint8_t>;
 using postcode_t = std::tuple<primarycode_t, secondarycode_t>;
 namespace fs = std::filesystem;
