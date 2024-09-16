@@ -119,16 +119,22 @@ void PostCode::savePostCodes(postcode_t code)
             POSTCODE_DISPLAY_PATH + std::to_string(node);
 
         std::ofstream postCodeDisplayFile(postCodeDisplayPath);
-        postCodeDisplayFile << "0x" << std::setfill('0') << std::setw(2)
-                            << std::hex << std::get<0>(code);
+        postCodeDisplayFile << "0x" << std::setfill('0') << std::hex;
+        for (const auto& byte : std::get<0>(code))
+        {
+            postCodeDisplayFile << std::setw(2) << static_cast<int>(byte);
+        }
         postCodeDisplayFile.close();
     }
 
 #ifdef ENABLE_BIOS_POST_CODE_LOG
     uint64_t usTimeOffset = tsUS - firstPostCodeUsSinceEpoch;
     std::ostringstream hexCode;
-    hexCode << "0x" << std::setfill('0') << std::setw(2) << std::hex
-            << std::get<0>(code);
+    hexCode << "0x" << std::setfill('0') << std::hex;
+    for (const auto& byte : std::get<0>(code))
+    {
+        hexCode << std::setw(2) << static_cast<int>(byte);
+    }
 
     std::ostringstream timeOffsetStr;
     // Set Fixed-Point Notation
