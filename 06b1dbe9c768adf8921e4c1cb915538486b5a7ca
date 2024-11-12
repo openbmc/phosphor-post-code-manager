@@ -16,6 +16,24 @@
       "message": "This depends on review in https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/74633",
       "revId": "06b1dbe9c768adf8921e4c1cb915538486b5a7ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08fc3107_b895ae61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-11-12T15:40:35Z",
+      "side": 1,
+      "message": "Yes, it does, but are you ok with the code?  Please at least give a +1.",
+      "parentUuid": "72c981f4_2057ffe7",
+      "revId": "06b1dbe9c768adf8921e4c1cb915538486b5a7ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
