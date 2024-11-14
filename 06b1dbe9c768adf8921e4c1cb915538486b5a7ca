@@ -34,6 +34,23 @@
       "parentUuid": "72c981f4_2057ffe7",
       "revId": "06b1dbe9c768adf8921e4c1cb915538486b5a7ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c99fa938_c1f7ad2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2024-11-14T06:43:15Z",
+      "side": 1,
+      "message": "It is good to go.",
+      "revId": "06b1dbe9c768adf8921e4c1cb915538486b5a7ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
