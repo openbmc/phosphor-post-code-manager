@@ -58,8 +58,8 @@ std::vector<postcode_t> PostCode::getPostCodes(uint16_t index)
     return codesVec;
 }
 
-std::map<uint64_t, postcode_t>
-    PostCode::getPostCodesWithTimeStamp(uint16_t index)
+std::map<uint64_t, postcode_t> PostCode::getPostCodesWithTimeStamp(
+    uint16_t index)
 {
     if (1 == index && !postCodes.empty())
     {
