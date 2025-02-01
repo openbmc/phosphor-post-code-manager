@@ -131,8 +131,8 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
     ~PostCode() {}
 
     std::vector<postcode_t> getPostCodes(uint16_t index) override;
-    std::map<uint64_t, postcode_t>
-        getPostCodesWithTimeStamp(uint16_t index) override;
+    std::map<uint64_t, postcode_t> getPostCodesWithTimeStamp(
+        uint16_t index) override;
     void deleteAll() override;
 
   private:
