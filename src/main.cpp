@@ -23,18 +23,23 @@ int main(int argc, char* argv[])
     int optIndex = 0;
     int ret = 0;
     int node = 0;
+    PostCodeHandlers handlers;
 
     std::string intfName;
 
     static struct option longOpts[] = {{"host", required_argument, 0, 'h'},
+                                       {"config", required_argument, 0, 'c'},
                                        {0, 0, 0, 0}};
 
-    while ((arg = getopt_long(argc, argv, "h:", longOpts, &optIndex)) != -1)
+    while ((arg = getopt_long(argc, argv, "h:c:", longOpts, &optIndex)) != -1)
     {
         switch (arg)
         {
             case 'h':
                 node = std::stoi(optarg);
+                break;
+            case 'c':
+                handlers.load(optarg);
                 break;
             default:
                 break;
@@ -64,7 +69,7 @@ int main(int argc, char* argv[])
 
     bus.request_name(intfName.c_str());
 
-    PostCode postCode{bus, dbusObjName.c_str(), eventP, node};
+    PostCode postCode{bus, dbusObjName.c_str(), eventP, node, handlers};
 
     try
     {
