@@ -18,6 +18,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+#include <nlohmann/json.hpp>
 #include <phosphor-logging/elog-errors.hpp>
 #include <sdbusplus/timer.hpp>
 #include <xyz/openbmc_project/Collection/DeleteAll/server.hpp>
@@ -61,10 +62,33 @@ using post_code =
 using delete_all =
     sdbusplus::xyz::openbmc_project::Collection::server::DeleteAll;
 
+struct PostCodeEvent
+{
+    std::string name;
+    nlohmann::json args;
+    void raise() const;
+};
+
+struct PostCodeHandler
+{
+    primarycode_t primary;
+    std::optional<secondarycode_t> secondary;
+    std::vector<std::string> targets;
+    std::optional<PostCodeEvent> event;
+};
+
+struct PostCodeHandlers
+{
+    std::vector<PostCodeHandler> handlers;
+    void handle(postcode_t code);
+    const PostCodeHandler* find(postcode_t code);
+    void load(const std::string& path);
+};
+
 struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
 {
     PostCode(sdbusplus::bus_t& bus, const char* path, EventPtr& event,
-             int nodeIndex) :
+             int nodeIndex, PostCodeHandlers& handlers) :
         sdbusplus::server::object_t<post_code, delete_all>(bus, path), bus(bus),
         event(event), node(nodeIndex),
         postCodeListPath(PostCodeListPathPrefix + std::to_string(node)),
@@ -116,7 +140,8 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
                         }
                     }
                 }
-            })
+            }),
+        postCodeHandlers(std::move(handlers))
     {
         phosphor::logging::log<phosphor::logging::level::INFO>(
             "PostCode is created");
@@ -156,4 +181,5 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
     bool deserialize(const fs::path& path, uint16_t& index);
     bool deserializePostCodes(const fs::path& path,
                               std::map<uint64_t, postcode_t>& codes);
+    PostCodeHandlers postCodeHandlers;
 };
