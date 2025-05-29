@@ -21,10 +21,112 @@
 #include <cereal/types/map.hpp>
 #include <cereal/types/tuple.hpp>
 #include <cereal/types/vector.hpp>
+#include <phosphor-logging/commit.hpp>
+#include <sdbusplus/bus.hpp>
+#include <sdbusplus/exception.hpp>
 
 #include <iomanip>
 
+using nlohmann::json;
+
 const static constexpr auto timeoutMicroSeconds = 1000000;
+/* systemd service to kick start a target. */
+constexpr auto SYSTEMD_SERVICE = "org.freedesktop.systemd1";
+constexpr auto SYSTEMD_ROOT = "/org/freedesktop/systemd1";
+constexpr auto SYSTEMD_INTERFACE = "org.freedesktop.systemd1.Manager";
+
+void PostCodeEvent::raise() const
+{
+    json j = {{name, args}};
+    try
+    {
+        sdbusplus::exception::throw_via_json(j);
+    }
+    catch (sdbusplus::exception::generated_event_base& e)
+    {
+        auto path = lg2::commit(std::move(e));
+        std::cout << path.str << std::endl;
+    }
+}
+
+void from_json(const json& j, PostCodeEvent& event)
+{
+    j.at("name").get_to(event.name);
+    for (const auto& entry : j.at("arguments").items())
+    {
+        if (entry.value().is_string())
+        {
+            event.args[entry.key()] = entry.value().get<std::string>();
+        }
+        else if (entry.value().is_number_integer())
+        {
+            event.args[entry.key()] = entry.value().get<int>();
+        }
+    }
+}
+
+void from_json(const json& j, PostCodeHandler& handler)
+{
+    j.at("primary").get_to(handler.primary);
+    if (j.contains("secondary"))
+    {
+        secondarycode_t secondary;
+        j.at("secondary").get_to(secondary);
+        handler.secondary = secondary;
+    }
+    if (j.contains("targets"))
+    {
+        j.at("targets").get_to(handler.targets);
+    }
+    if (j.contains("event"))
+    {
+        PostCodeEvent event;
+        j.at("event").get_to(event);
+        handler.event = event;
+    }
+}
+
+const PostCodeHandler* PostCodeHandlers::find(postcode_t code)
+{
+    for (const auto& handler : handlers)
+    {
+        if (handler.primary == std::get<0>(code) &&
+            (!handler.secondary || *handler.secondary == std::get<1>(code)))
+        {
+            return &handler;
+        }
+    }
+    return nullptr;
+}
+
+void PostCodeHandlers::handle(postcode_t code)
+{
+    const PostCodeHandler* handler = find(code);
+    if (!handler)
+    {
+        return;
+    }
+    for (const auto& target : handler->targets)
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto method = bus.new_method_call(SYSTEMD_SERVICE, SYSTEMD_ROOT,
+                                          SYSTEMD_INTERFACE, "StartUnit");
+        method.append(target);
+        method.append("replace");
+        bus.call_noreply(method);
+    }
+    if (handler->event)
+    {
+        (*(handler->event)).raise();
+    }
+}
+
+void PostCodeHandlers::load(const std::string& path)
+{
+    std::ifstream ifs(path);
+    handlers = json::parse(ifs).template get<std::vector<PostCodeHandler>>();
+    ifs.close();
+}
 
 void PostCode::deleteAll()
 {
@@ -152,6 +254,7 @@ void PostCode::savePostCodes(postcode_t code)
             "REDFISH_MESSAGE_ARGS=%d,%s,%s", currentBootCycleIndex,
             timeOffsetStr.str().c_str(), hexCode.str().c_str()));
 #endif
+    postCodeHandlers.handle(code);
 
     return;
 }

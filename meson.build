@@ -7,6 +7,8 @@ project(
     version: '1.0',
 )
 
+# Disable JSON implicit conversions.
+add_project_arguments('-DJSON_USE_IMPLICIT_CONVERSIONS=0', language: 'cpp')
 
 conf_data = configuration_data()
 conf_data.set_quoted(
@@ -33,6 +35,7 @@ configure_file(output: 'config.h', configuration: conf_data)
 sdbusplus = dependency('sdbusplus')
 phosphor_logging = dependency('phosphor-logging')
 phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces')
+json = dependency('nlohmann_json', include_type: 'system')
 
 cxx = meson.get_compiler('cpp')
 cereal_dep = dependency('cereal', required: false)
@@ -66,6 +69,14 @@ install_subdir(
     strip_directory: true,
 )
 
+packagedir = join_paths(
+    get_option('prefix'),
+    get_option('datadir'),
+    'phosphor-post-code-manager',
+)
+
+install_data(sources: 'post-code-handlers.json', install_dir: packagedir)
+
 executable(
     'post-code-manager',
     'src/main.cpp',
@@ -76,6 +87,7 @@ executable(
         phosphor_dbus_interfaces,
         phosphor_logging,
         cereal_dep,
+        json,
     ],
     include_directories: 'inc',
 )

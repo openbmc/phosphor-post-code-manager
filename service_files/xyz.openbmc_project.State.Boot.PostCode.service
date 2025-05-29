@@ -2,7 +2,7 @@
 Description=Post code manager
 
 [Service]
-ExecStart=/usr/bin/post-code-manager --host 0
+ExecStart=/usr/bin/post-code-manager --host 0 --config /usr/share/phosphor-post-code-manager/post-code-handlers.json
 SyslogIdentifier=post-code-manager
 Type=dbus
 BusName=xyz.openbmc_project.State.Boot.PostCode0
