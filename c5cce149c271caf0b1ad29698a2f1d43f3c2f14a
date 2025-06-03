@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85184af4_25928a99",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001000
+      },
+      "writtenOn": "2025-06-03T03:43:45Z",
+      "side": 1,
+      "message": "I\u0027m unable to understand how json::parse can create a vector containing PostCodeHandler objects.",
+      "revId": "c5cce149c271caf0b1ad29698a2f1d43f3c2f14a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
