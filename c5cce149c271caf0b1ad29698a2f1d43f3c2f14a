@@ -16,6 +16,24 @@
       "message": "I\u0027m unable to understand how json::parse can create a vector containing PostCodeHandler objects.",
       "revId": "c5cce149c271caf0b1ad29698a2f1d43f3c2f14a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a76dfa7a_8c086f93",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2025-06-03T04:21:51Z",
+      "side": 1,
+      "message": "Hi Min, I have added the helpers from_json(..., PostCodeHandler\u0026 handler) in line 68. This allows us to parse the PostCodeHandler. nlohmann can then just go from there since it can expand it to standard structures of that. See https://stackoverflow.com/questions/61708244/nlohmann-json-converting-to-and-from-nested-structures",
+      "parentUuid": "85184af4_25928a99",
+      "revId": "c5cce149c271caf0b1ad29698a2f1d43f3c2f14a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
