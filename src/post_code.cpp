@@ -202,6 +202,7 @@ bool PostCode::deserialize(const fs::path& path, uint16_t& index)
     catch (const cereal::Exception& e)
     {
         phosphor::logging::log<phosphor::logging::level::ERR>(e.what());
+        fs::remove(path);
         return false;
     }
     catch (const fs::filesystem_error& e)
@@ -229,6 +230,7 @@ bool PostCode::deserializePostCodes(const fs::path& path,
     catch (const cereal::Exception& e)
     {
         phosphor::logging::log<phosphor::logging::level::ERR>(e.what());
+        fs::remove(path);
         return false;
     }
     catch (const fs::filesystem_error& e)
