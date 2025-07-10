@@ -65,14 +65,36 @@ void from_json(const json& j, PostCodeEvent& event)
     }
 }
 
+std::vector<uint8_t> decodeHexString(const std::string& hex)
+{
+    std::vector<uint8_t> out;
+    // The post-code is at least 1 byte. So, we need at
+    // least a 4 char string.
+    if (hex.size() < 4 || hex.size() % 2 != 0 || hex.substr(0, 2) != "0x")
+    {
+        throw std::runtime_error("Bad Hex String: " + hex);
+    }
+    for (size_t i = 2; i < hex.size(); i += 2)
+    {
+        std::string byteString = hex.substr(i, 2);
+        uint8_t byte = (uint8_t)std::strtol(byteString.c_str(), NULL, 16);
+        out.push_back(byte);
+    }
+    return out;
+}
+
 void from_json(const json& j, PostCodeHandler& handler)
 {
-    j.at("primary").get_to(handler.primary);
+    std::string primary;
+    j.at("name").get_to(handler.name);
+    j.at("description").get_to(handler.description);
+    j.at("primary").get_to(primary);
+    handler.primary = decodeHexString(primary);
     if (j.contains("secondary"))
     {
-        secondarycode_t secondary;
+        std::string secondary;
         j.at("secondary").get_to(secondary);
-        handler.secondary = secondary;
+        handler.secondary = decodeHexString(secondary);
     }
     if (j.contains("targets"))
     {
@@ -255,7 +277,6 @@ void PostCode::savePostCodes(postcode_t code)
             timeOffsetStr.str().c_str(), hexCode.str().c_str()));
 #endif
     postCodeHandlers.handle(code);
-
     return;
 }
 
