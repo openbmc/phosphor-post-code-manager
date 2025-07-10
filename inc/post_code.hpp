@@ -71,6 +71,8 @@ struct PostCodeEvent
 
 struct PostCodeHandler
 {
+    std::string name;
+    std::string description;
     primarycode_t primary;
     std::optional<secondarycode_t> secondary;
     std::vector<std::string> targets;
