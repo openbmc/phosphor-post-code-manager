@@ -75,7 +75,23 @@ packagedir = join_paths(
     'phosphor-post-code-manager',
 )
 
-install_data(sources: 'post-code-handlers.json', install_dir: packagedir)
+configurations = ['post-code-handlers.json']
+config_validator = files('scripts/schema_validator.py')
+confchecker_iface = custom_target(
+    'check_syntax_iface',
+    command: [
+        'python3',
+        config_validator,
+        files('schema/handlers.json'),
+        '@INPUT@',
+    ],
+    input: files(configurations),
+    depend_files: files(configurations),
+    build_by_default: true,
+    capture: true,
+    output: 'validate_configs.log',
+)
+install_data(sources: configurations, install_dir: packagedir)
 
 executable(
     'post-code-manager',
