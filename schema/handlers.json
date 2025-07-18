@@ -1,0 +1,10 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Handler",
+    "title": "Post Code Handler configuration schema",
+    "description": "Schema to test the post code handler configuration",
+    "type": "array",
+    "items": {
+        "$ref": "handler.json#definitions"
+    }
+}
