@@ -275,6 +275,11 @@ fs::path PostCode::serialize(const fs::path& path)
         std::ofstream osPostCodes(path / std::to_string(currentBootCycleIndex));
         cereal::BinaryOutputArchive oarchivePostCodes(osPostCodes);
         oarchivePostCodes(postCodes);
+
+        std::ofstream osVersion(path / PostCodeDataVersionName,
+                                std::ios::binary);
+        cereal::BinaryOutputArchive versionArchive(osVersion);
+        versionArchive(PostCodeDataVersion);
     }
     catch (const cereal::Exception& e)
     {

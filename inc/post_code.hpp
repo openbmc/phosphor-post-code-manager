@@ -42,6 +42,8 @@ const static constexpr char* PostCodeListPathPrefix =
     "/var/lib/phosphor-post-code-manager/host";
 const static constexpr char* HostStatePathPrefix =
     "/xyz/openbmc_project/state/host";
+const static constexpr char* PostCodeDataVersionName = "PostCodeDataVersion";
+const static constexpr uint16_t PostCodeDataVersion = 1;
 
 struct EventDeleter
 {
@@ -146,11 +148,26 @@ struct PostCode : sdbusplus::server::object_t<post_code, delete_all>
         phosphor::logging::log<phosphor::logging::level::INFO>(
             "PostCode is created");
         fs::create_directories(postCodeListPath);
-        deserialize(postCodeListPath / CurrentBootCycleIndexName,
-                    currentBootCycleIndex);
-        uint16_t count = 0;
-        deserialize(postCodeListPath / CurrentBootCycleCountName, count);
-        currentBootCycleCount(count);
+        uint16_t version = 0;
+        if (!deserialize(postCodeListPath / PostCodeDataVersionName, version) ||
+            version != PostCodeDataVersion)
+        {
+            phosphor::logging::log<phosphor::logging::level::INFO>(
+                "This version of post code data is not supported");
+            fs::remove_all(postCodeListPath);
+            fs::create_directories(postCodeListPath);
+            postCodes.clear();
+            currentBootCycleIndex = 0;
+            currentBootCycleCount(0);
+        }
+        else
+        {
+            deserialize(postCodeListPath / CurrentBootCycleIndexName,
+                        currentBootCycleIndex);
+            uint16_t count = 0;
+            deserialize(postCodeListPath / CurrentBootCycleCountName, count);
+            currentBootCycleCount(count);
+        }
         maxBootCycleNum(MAX_BOOT_CYCLE_COUNT);
     }
     ~PostCode() {}
