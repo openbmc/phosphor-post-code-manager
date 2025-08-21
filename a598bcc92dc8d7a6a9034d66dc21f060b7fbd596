@@ -39,6 +39,30 @@
       },
       "revId": "a598bcc92dc8d7a6a9034d66dc21f060b7fbd596",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "773b0747_936c3edc",
+        "filename": "src/post_code.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2025-08-21T01:55:20Z",
+      "side": 1,
+      "message": "I did consider that, but std::sto* all assume a fixed byte output (example stoll -- 8 bytes), but here we need a variable length hex string converted to a vector which could be larger than 8 bytes.",
+      "parentUuid": "cdcc4532_63c197f1",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 5
+      },
+      "revId": "a598bcc92dc8d7a6a9034d66dc21f060b7fbd596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
