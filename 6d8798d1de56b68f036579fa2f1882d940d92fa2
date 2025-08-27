@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c98bf24b_e1848825",
+        "filename": "schema/handler.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2025-08-27T20:47:08Z",
+      "side": 1,
+      "message": "I think I will stick to JSON for now. But will be open to switch if I see a general trend.",
+      "parentUuid": "3cbb9ea5_8d78ab77",
+      "revId": "6d8798d1de56b68f036579fa2f1882d940d92fa2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd58c149_560660b1",
