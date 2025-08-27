@@ -70,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0cedf3f_713df671",
+        "filename": "schema/handler.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2025-08-27T20:37:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5815cdd4_20b458ea",
+      "revId": "6d8798d1de56b68f036579fa2f1882d940d92fa2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "515ad0b9_cac384b6",
@@ -117,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf6a8ee9_68c2214b",
+        "filename": "schema/handlers.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2025-08-27T20:37:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffc2be0e_aa39d89e",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 1
+      },
+      "revId": "6d8798d1de56b68f036579fa2f1882d940d92fa2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b50ba40_cc5841c1",
@@ -148,6 +190,24 @@
       "side": 1,
       "message": "removing it since I am merging handler into handlers.",
       "parentUuid": "1b50ba40_cc5841c1",
+      "revId": "6d8798d1de56b68f036579fa2f1882d940d92fa2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6de970d0_ad3c8fe3",
+        "filename": "scripts/schema_validator.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2025-08-27T20:37:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29adb181_4137049e",
       "revId": "6d8798d1de56b68f036579fa2f1882d940d92fa2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -189,6 +249,30 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "0ecbb5d1_333d768e",
+      "range": {
+        "startLine": 15,
+        "startChar": 27,
+        "endLine": 15,
+        "endChar": 42
+      },
+      "revId": "6d8798d1de56b68f036579fa2f1882d940d92fa2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38d236df_db77b83f",
+        "filename": "scripts/schema_validator.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2025-08-27T20:37:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "108893d7_d0b84f5d",
       "range": {
         "startLine": 15,
         "startChar": 27,
