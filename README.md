@@ -49,12 +49,16 @@ Configuration format:
 ```json
 [
   {
-    "primary": [123],
-    "secondary": [234, 123],
+    "name": "SpecialPostCode",
+    "description": "Perform special handling of 0x12",
+    "primary": "0x12",
+    "secondary": "0x1234",
     "targets": ["my_special.service"]
   },
   {
-    "primary": [999],
+    "name": "PowerFailure",
+    "description": "Detect a power rail fault",
+    "primary": "0x12",
     "targets": ["power_failure.service"],
     "event": {
       "name": "xyz.openbmc_project.State.Power.PowerRailFault",
@@ -69,9 +73,9 @@ Configuration format:
 
 Each entry in the array describes a special handler for a specific post code.
 
-- `primary` - [required] The primary post code to match.
-- `secondary` - [optional] The secondary post code to match. If not present, the
-  match will be for all post codes which match just the primary
+- `primary` - [required] The primary post code to match as a hex string.
+- `secondary` - [optional] The secondary post code (hex string) to match. If not
+  present, the matches all post codes which match just the primary
 - `targets` - [optional] List of systemd targets to start when the matching post
   code is received.
 - `event` - [optional] The descriptor of the event to create with
