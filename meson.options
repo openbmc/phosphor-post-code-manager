@@ -16,7 +16,7 @@ option(
     'max-post-code-size-per-cycle',
     type: 'integer',
     min: 64,
-    max: 1024,
+    max: 20480,
     description: 'Maximum post code file size per cycle',
     value: 512,
 )
