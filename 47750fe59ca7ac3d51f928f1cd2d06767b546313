@@ -22,6 +22,30 @@
       },
       "revId": "47750fe59ca7ac3d51f928f1cd2d06767b546313",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f707eb7b_5718bce5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002711
+      },
+      "writtenOn": "2025-11-14T12:59:48Z",
+      "side": 1,
+      "message": "In AMD systems use four byte post code, and serval controllers will send post code.\nfollowing is our record in one time boot. FYI\n\n        {\n            \"@odata.id\": \"/redfish/v1/Systems/system/LogServices/PostCodes/Entries/B1-10000\",\n            \"@odata.type\": \"#LogEntry.v1_9_0.LogEntry\",\n            \"Created\": \"2025-04-03T20:39:32.352546+00:00\",\n            \"EntryType\": \"Event\",\n            \"Id\": \"B1-10000\",\n            \"Message\": \"Boot Count: 1; Time Stamp Offset: 254.9355 seconds; POST Code: 0xEF808003\",\n            \"MessageArgs\": [\n                \"1\",\n                \"254.9355\",\n                \"0xEF808003\"\n            ],\n            \"MessageId\": \"OpenBMC.0.2.BIOSPOSTCode\",\n            \"Name\": \"POST Code Log Entry\",\n            \"Severity\": \"OK\"\n        }\n    ],\n    \"Members@odata.count\": 15693,\n    \"Members@odata.nextLink\": \"/redfish/v1/Systems/system/LogServices/PostCodes/Entries?$skip\u003d1000\",\n    \"Name\": \"BIOS POST Code Log Entries\"\n}",
+      "parentUuid": "b6c515f1_6a465d7d",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 35
+      },
+      "revId": "47750fe59ca7ac3d51f928f1cd2d06767b546313",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
