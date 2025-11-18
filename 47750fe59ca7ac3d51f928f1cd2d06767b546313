@@ -46,6 +46,30 @@
       },
       "revId": "47750fe59ca7ac3d51f928f1cd2d06767b546313",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64b335dd_19a978ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-11-18T18:49:56Z",
+      "side": 1,
+      "message": "@manojkiran.eda@gmail.com - This is the count:\n\n```\n229-    postCodes.insert(std::make_pair(tsUS, code));\n230:    if (postCodes.size() \u003e MAX_POST_CODE_SIZE_PER_CYCLE)\n231-    {\n232-        postCodes.erase(postCodes.begin());\n233-    }\n```\n\n20k is surprisingly high to me, but Colin seems to be showing an example of a boot having at least 15k post codes.  I\u0027m not sure why we limit at build-time to any particular value, but is there any harm to letting system integrators extend this?  I can\u0027t really think of any harm in allowing this to be 20k.",
+      "parentUuid": "f707eb7b_5718bce5",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 35
+      },
+      "revId": "47750fe59ca7ac3d51f928f1cd2d06767b546313",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
