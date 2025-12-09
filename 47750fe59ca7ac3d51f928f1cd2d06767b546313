@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f356c463_c2eea476",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2025-12-09T04:23:07Z",
+      "side": 1,
+      "message": "Looking by the way the post-code-manager is implemented, The only harm that I could think of is that, if we have a rouge host/BIOS which can bombard BMC with ton of progress codes, making the BMC go to OOM. I think at the moment we only rotate-replace the postcodes per boot (based on max-boot-cycle-count).\n\n\n@colin.huang2@amd.com - did you notice any issues with memory consumption with that many codes  ?",
+      "parentUuid": "64b335dd_19a978ce",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 35
+      },
+      "revId": "47750fe59ca7ac3d51f928f1cd2d06767b546313",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a3f08fbc_b86d2230",
