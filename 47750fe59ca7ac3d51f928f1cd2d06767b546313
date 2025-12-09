@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9d88ec3_1eecd3cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-12-09T21:03:38Z",
+      "side": 1,
+      "message": "We\u0027re not talking about that much memory / flash space here.  Not even 1MB.\n\n```\n$ seq 1 20480 | jq --slurp | wc\n  20482   20482  173217\n```\n\n\u003e The only harm that I could think of is that, if we have a rouge host/BIOS which can bombard BMC with ton of progress codes\n\nThis is a system integrator problem though.  The repository itself I don\u0027t think should be limiting to such a low number.  Right now we can\u0027t even override this default without a patch.",
+      "parentUuid": "f356c463_c2eea476",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 35
+      },
+      "revId": "47750fe59ca7ac3d51f928f1cd2d06767b546313",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a3f08fbc_b86d2230",
