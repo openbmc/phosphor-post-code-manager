@@ -77,7 +77,7 @@ std::vector<uint8_t> decodeHexString(const std::string& hex)
     for (size_t i = 2; i < hex.size(); i += 2)
     {
         std::string byteString = hex.substr(i, 2);
-        uint8_t byte = (uint8_t)std::strtol(byteString.c_str(), NULL, 16);
+        uint8_t byte = (uint8_t)std::strtol(byteString.c_str(), nullptr, 16);
         out.push_back(byte);
     }
     return out;

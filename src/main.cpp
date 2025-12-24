@@ -27,9 +27,10 @@ int main(int argc, char* argv[])
 
     std::string intfName;
 
-    static struct option longOpts[] = {{"host", required_argument, 0, 'h'},
-                                       {"config", required_argument, 0, 'c'},
-                                       {0, 0, 0, 0}};
+    static struct option longOpts[] = {
+        {"host", required_argument, nullptr, 'h'},
+        {"config", required_argument, nullptr, 'c'},
+        {nullptr, 0, nullptr, 0}};
 
     while ((arg = getopt_long(argc, argv, "h:c:", longOpts, &optIndex)) != -1)
     {
