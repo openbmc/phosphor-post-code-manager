@@ -168,6 +168,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0715e13_a141ef4e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2026-01-07T07:14:23Z",
+      "side": 1,
+      "message": "I’m not currently listed as a maintainer of this repository; it is maintained by `Kuiying Wang` and `Zuikui`. I noticed that Zuikui’s email address had not been updated, so I submitted a [patch](https://gerrit.openbmc.org/c/openbmc/phosphor-post-code-manager/+/83637) last September to correct it, but it has not yet received any response till now.\n\nSome time last year, several commits were merged that changed the post-code signatures and persisted file formats without any backward compatibility, which broke IBM systems. Because of this, I added myself as a reviewer so I can help catch issues before they cause similar problems. But I’m also willing to help maintain this repository going forward if needed. I’m already performing similar responsibilities internally at IBM, and I don’t anticipate large volumes of future changes beyond keeping the project aligned with evolving standards.",
+      "parentUuid": "f0449224_28e0ce16",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 35
+      },
+      "revId": "47750fe59ca7ac3d51f928f1cd2d06767b546313",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a3f08fbc_b86d2230",
