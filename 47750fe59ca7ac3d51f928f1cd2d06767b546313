@@ -146,6 +146,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f0449224_28e0ce16",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-01-07T01:30:50Z",
+      "side": 1,
+      "message": "@manojkiran.eda@gmail.com - Great ... can we merge this now?",
+      "parentUuid": "4563e98c_930c49f4",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 35
+      },
+      "revId": "47750fe59ca7ac3d51f928f1cd2d06767b546313",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a3f08fbc_b86d2230",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
